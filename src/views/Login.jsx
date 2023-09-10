@@ -12,6 +12,8 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorText, setErrorText] = useState('')
+  const [errorInput, setErrorInput] = useState('')
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -24,11 +26,18 @@ const Login = () => {
 
   const login = async () => {
     try {
-      await LoginUser({
+      const data = await LoginUser({
         email: email,
         password: password
       })
-      navigate('/')
+      if (data.status === 200) {
+        navigate('/')
+        setErrorInput('')
+        setErrorText('')
+      } else if (data.data.status === 404) {
+        setErrorInput('input-error')
+        setErrorText('Email or password is wrong!')
+      }
     } catch (error) {
       throw error
     }
@@ -62,8 +71,9 @@ const Login = () => {
        
         <div className="card-body items-center text-center">
           <h2 className="card-title">Login</h2>
-          <SimpleInput label='email' name='email' onChange={handleInput} value={email} type='email' className='mb-2' />
-          <SimpleInput label='password' name='password' onChange={handleInput} value={password} type='password' className='mb-2' />
+          <SimpleInput label='email' name='email' onChange={handleInput} value={email} type='email' className={errorInput} />
+          <SimpleInput label='password' name='password' onChange={handleInput} value={password} type='password' className={errorInput} />
+          <small className="text-red-500">{errorText}</small>
           <small className='text-blue-500 cursor-pointer hover:underline'>don't have an account? please register</small>
           <div className="card-actions mt-5">
             <button className="btn btn-primary" onClick={login}>Login</button>
