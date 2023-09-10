@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { SimpleInput } from '../components/baseInput'
-import { LoginUser } from '../api/userApi'
-import { redirect } from 'react-router-dom'
+import { SimpleInput } from '../../components/baseInput'
+import { LoginUser, GetAllUser } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
-import { GetAllUser } from "../api/userApi";
 
 
 const Login = () => {
@@ -31,9 +29,9 @@ const Login = () => {
         password: password
       })
       if (data.status === 200) {
-        navigate('/')
         setErrorInput('')
         setErrorText('')
+        navigate('/')
       } else if (data.data.status === 404) {
         setErrorInput('input-error')
         setErrorText('Email or password is wrong!')
@@ -74,7 +72,7 @@ const Login = () => {
           <SimpleInput label='email' name='email' onChange={handleInput} value={email} type='email' className={errorInput} />
           <SimpleInput label='password' name='password' onChange={handleInput} value={password} type='password' className={errorInput} />
           <small className="text-red-500">{errorText}</small>
-          <small className='text-blue-500 cursor-pointer hover:underline'>don't have an account? please register</small>
+          <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/register')}>Don't have an account? please register</small>
           <div className="card-actions mt-5">
             <button className="btn btn-primary" onClick={login}>Login</button>
           </div>

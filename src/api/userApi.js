@@ -22,6 +22,16 @@ export const LoginUser = (data) => {
   return callApi('post', `${apiUrl}/login`, data)
 }
 
+export const RegisterUser = (data) => {
+  return axios.post(`${apiUrl}/register`, data)
+  .then(response => response.data)
+  .catch(error => error.response)
+}
+
+export const UpdateUserProfile = (data) => {
+  return callApi('put', `${apiUrl}/user/update`, data)
+}
+
 export const LogoutUser = () => {
   return axios.delete(`${apiUrl}/logout`, {
     withCredentials: true,
