@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { SimpleInput } from '../components/baseInput'
 import { LoginUser } from '../api/userApi'
 import { redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { GetAllUser } from "../api/userApi";
+
 
 const Login = () => {
 
+  const navigate = useNavigate()
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -19,17 +24,37 @@ const Login = () => {
 
   const login = async () => {
     try {
-      const response = await LoginUser({
+      await LoginUser({
         email: email,
         password: password
       })
-      redirect('/')
-
-      console.log(response, '<-- response jika berhasil');
+      navigate('/')
     } catch (error) {
-      console.log(error, '<-- error login');
+      throw error
     }
   }
+
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const data = await GetAllUser();
+        if (data.status === 401) {
+          setIsLoggedIn(false);
+        }
+        if (data.status === 200) {
+          setIsLoggedIn(true);
+          navigate('/')
+        }
+      } catch (error) {
+        throw error
+      }
+    };
+
+    checkLoginStatus();
+  }, [isLoggedIn]);
+
+
 
   return (
     <div className='bg-gray-100 h-screen flex justify-center items-center'>

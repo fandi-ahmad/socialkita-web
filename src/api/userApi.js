@@ -29,3 +29,11 @@ export const LogoutUser = () => {
   .then(response => response.data)
   .catch(error => error.response)
 };
+
+export const GetUserLogin = () => {
+  return axios.get(`${apiUrl}/user-login`, {
+    withCredentials: true,
+  })
+  .then(response => response.data)
+  .catch(error => error.response)
+}

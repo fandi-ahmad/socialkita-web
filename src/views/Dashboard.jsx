@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { GetAllUser, LogoutUser } from '../api/userApi'
-import { redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { CheckLogged } from '../components/checkLogged'
+import { useGlobalState } from '../state/state';
+
 
 const Dashboard = () => {
+  const navigate = useNavigate()
+  const [username, setUsername] = useGlobalState('username')
+
   const getAllData = async () => {
     try {
       const data = await GetAllUser()
-
       console.log(data, '<-- semua data');
     } catch (error) {
       console.log(error);
@@ -15,9 +20,8 @@ const Dashboard = () => {
 
   const logout = async () => {
     try {
-      const out = await LogoutUser()
-      console.log(out);
-      redirect('/login')
+      await LogoutUser()
+      navigate('/login')
     } catch (error) {
       console.log(error);
     }
@@ -25,12 +29,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     getAllData()
-  }, [])
+  }, [username])
 
 
   return (
     <>
+      <CheckLogged />
       <div>Dashboard</div>
+      <p>hay {username}!</p>
       <button className='btn btn-error' onClick={logout}>logout</button>
     </>
   )
