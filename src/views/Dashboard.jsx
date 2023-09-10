@@ -89,7 +89,7 @@ const Dashboard = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <a className="btn"><i className="fa-solid fa-user"></i></a>
         </div>
       </div>
       <div>Dashboard</div>
