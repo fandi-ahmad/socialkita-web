@@ -2,7 +2,8 @@ import { createGlobalState } from 'react-hooks-global-state'
 
 const initialState = {
   count: 435,
-  username: 'user'
+  username: '',
+  uuidUser: ''
 };
 const { useGlobalState } = createGlobalState(initialState);
 

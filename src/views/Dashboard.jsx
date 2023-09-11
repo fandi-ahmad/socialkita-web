@@ -6,16 +6,26 @@ import { useGlobalState } from '../state/state';
 import { SimpleInput } from '../components/baseInput';
 import { Navbar } from '../components/Navbar';
 import { BaseCard } from '../components/BaseCard';
+import { getId } from '../function/baseFunction';
 
 const Dashboard = () => {
   const navigate = useNavigate()
   const [username, setUsername] = useGlobalState('username')
+  const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [newUsername, setNewUsername] = useState('')
+  const [fullname, setFullname] = useState('')
 
   const getAllData = async () => {
     try {
-      const data = await GetAllUser()
-      console.log(data, '<-- semua data');
+      // const data = await GetAllUser()
+      // console.log(data, '<-- semua data');
+      if (username) {
+        console.log(username, '<-- username dari dashboard');
+        getId('hideUsernameModal').click()
+      } else {
+        getId('usernameModal').showModal()
+        console.log('tidak ada username');        
+      }
     } catch (error) {
       console.log(error);
     }
@@ -26,14 +36,19 @@ const Dashboard = () => {
     const { name, value } = e.target;
     switch (name) {
       case 'username': setNewUsername(value); break;
+      case 'fullname': setFullname(value); break;
       default: break;
     }
   };
 
   const updateUsername = async () => {
     try {
-      const data = await UpdateUserProfile({ username: newUsername })
-      data.status === 200 ? setUsername(newUsername) : null
+      const data = await UpdateUserProfile({ username: newUsername, fullname: fullname, uuid_user: uuidUser })
+      if (data.status !== 500) {
+        getId('hideUsernameModal').click()
+      }
+      console.log(data, '<-- response');
+      // data.status === 200 ? setUsername(newUsername) : null
     } catch (error) {
       console.log(error);
     }
@@ -49,12 +64,6 @@ const Dashboard = () => {
       <CheckLogged />
       <Navbar/>
       <div className='px-20 py-10'>
-        {/* <p>hay {username}!</p>
-        <div className='flex flex-col w-52 gap-3'>
-          <SimpleInput label='change username' name='username' value={newUsername} onChange={handleInput} />
-          <button className="btn btn-primary" onClick={updateUsername}>change username</button>
-        </div> */}
-
         <div className='grid grid-cols-3 gap-4'>
           <BaseCard text='Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit' />
           <BaseCard/>
@@ -64,6 +73,21 @@ const Dashboard = () => {
 
       </div>
 
+      <dialog id="usernameModal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg text-center">Buat username dan nama anda</h3>
+          <div className='flex flex-col w-full pt-4'>
+            <SimpleInput label='username' name='username' value={newUsername} onChange={handleInput} className='mb-4' />
+            <SimpleInput label='nama lengkap' name='fullname' value={fullname} onChange={handleInput} />
+            <button className="btn btn-primary mt-8 mx-auto" onClick={updateUsername}>change username</button>
+          </div>
+          <div className="modal-action flex justify-center">
+            <form method="dialog" className='hidden'>
+              <button className="btn" id='hideUsernameModal'></button>
+            </form>
+          </div>
+        </div>
+      </dialog>
 
      
     </>

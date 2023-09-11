@@ -53,7 +53,6 @@ const Register = () => {
             })
             console.log(dataLogin, '<-- response saat login');
             if (dataLogin.status === 200) {
-              setErrorInput('')
               setErrorText('')
               navigate('/')
             }
@@ -105,7 +104,7 @@ const Register = () => {
           <small className="text-red-500">{errorText}</small>
           <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/login')}>Already account? please login</small>
           <div className="card-actions mt-5">
-            <button className="btn btn-primary" onClick={register}>Login</button>
+            <button className="btn btn-primary" onClick={register}>register</button>
           </div>
         </div>
       </div>

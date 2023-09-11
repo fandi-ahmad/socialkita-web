@@ -1,5 +1,6 @@
 import axios from "axios";
 const apiUrl = 'http://localhost:8000/api/v1/auth'
+const apiUser = 'http://localhost:8000/api/v1/user'
 
 
 const callApi = (method, url, data = null) => {
@@ -28,10 +29,6 @@ export const RegisterUser = (data) => {
   .catch(error => error.response)
 }
 
-export const UpdateUserProfile = (data) => {
-  return callApi('put', `${apiUrl}/user/update`, data)
-}
-
 export const LogoutUser = () => {
   return axios.delete(`${apiUrl}/logout`, {
     withCredentials: true,
@@ -46,4 +43,22 @@ export const GetUserLogin = () => {
   })
   .then(response => response.data)
   .catch(error => error.response)
+}
+
+// ============== /user ============
+
+export const GetUserProfile = (uuid) => {
+  return axios.get(`${apiUser}/profile/${uuid}`, {
+    withCredentials: true,
+  })
+  .then(response => response.data)
+  .catch(error => error.response)
+}
+
+// export const UpdateUserProfile = (data) => {
+//   return callApi('put', `${apiUrl}/user/update`, data)
+// }
+
+export const UpdateUserProfile = (data) => {
+  return callApi('put', `${apiUser}/update`, data)
 }

@@ -16,19 +16,19 @@ export const ProfileCard = (props) => {
       <div className='my-4'>
         <div className='flex flex-row items-center'>
           <div className='w-5'>
-            <i class="fa-solid fa-location-dot"></i>
+            <i className="fa-solid fa-location-dot"></i>
           </div>
           <p className='ps-2 capitalize'>{props.address}</p>
         </div>
         <div className='flex flex-row items-center'>
           <div className='w-5'>
-            <i class="fa-solid fa-building"></i>
+            <i className="fa-solid fa-building"></i>
           </div>
           <p className='ps-2 capitalize'>{props.work}</p>
         </div>
         <div className='flex flex-row items-center cursor-pointer'>
           <div className="w-5">
-            <i class="fa-solid fa-link"></i>
+            <i className="fa-solid fa-link"></i>
           </div>
           <p className='ps-2'>{props.link}</p>
         </div>
