@@ -57,3 +57,18 @@ export const Navbar = (props) => {
     </>
   )
 }
+
+
+export const MiniNavbar = (props) => {
+
+  return (
+    <div className='bg-base-200 w-full px-20'>
+      <button className="btn btn-sm capitalize me-2 bg-base-300">
+        <i className="fa-solid fa-book-open"></i> overview
+      </button>
+      <button className="btn btn-sm capitalize me-2">
+        <i class="fa-solid fa-briefcase"></i> project
+      </button>
+    </div>
+  )
+}

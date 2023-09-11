@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar } from '../components/Navbar'
+import { Navbar, MiniNavbar } from '../components/Navbar'
 import { SimpleInput } from '../components/baseInput'
 import { ProfileCard } from '../components/ProfileCard'
 import profilePicture from '../assets/images/blank-profile-picture.png'
@@ -92,6 +92,7 @@ const Profile = () => {
     <>
       <CheckLogged />
       <Navbar/>
+      <MiniNavbar/>
       <div className='px-20 pt-10 flex flex-row'>
         <div className="avatar">
           <div className="w-72 h-72 rounded-full">
@@ -103,7 +104,7 @@ const Profile = () => {
           username={username}
           fullname={fullname}
           category={category}
-          button={<button className="btn btn-sm btn-primary" onClick={btnEditProfile}>Edit profile</button>}
+          button={<button className="btn btn-sm btn-primary capitalize" onClick={btnEditProfile}>Edit profile</button>}
           address={address}
           work={work}
           link={link}
@@ -116,8 +117,8 @@ const Profile = () => {
           category={<SimpleInput placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
           button={
             <div>
-              <button className="btn btn-sm bg-gray-300 hover:bg-gray-400 me-2" onClick={btnCancel}>batal</button>
-              <button className="btn btn-sm btn-primary" onClick={btnSave}>simpan</button>
+              <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={btnCancel}>batal</button>
+              <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
             </div>
           }
           address={<SimpleInput placeholder='alamat' name='address' value={address} onChange={handleInput} />}
