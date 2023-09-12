@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, MiniNavbar } from '../components/Navbar'
-import { SimpleInput } from '../components/baseInput'
-import { ProfileCard } from '../components/ProfileCard'
-import profilePicture from '../assets/images/blank-profile-picture.png'
-import { CheckLogged } from '../components/checkLogged'
-import { useGlobalState } from '../state/state'
-import { GetUserProfile, UpdateUserProfile } from '../api/userApi'
+import { Navbar, MiniNavbar } from '../../components/Navbar'
+import { SimpleInput } from '../../components/baseInput'
+import { ProfileCard } from '../../components/ProfileCard'
+import profilePicture from '../../assets/images/blank-profile-picture.png'
+import { CheckLogged } from '../../components/checkLogged'
+import { useGlobalState } from '../../state/state'
+import { GetUserProfile, UpdateUserProfile } from '../../api/userApi'
+import { useNavigate } from 'react-router-dom'
 
-const Profile = () => {
+const EditProfile = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [username, setUsername] = useGlobalState('username')
   const [newUsername, setNewUsername] = useState('')
@@ -17,12 +18,14 @@ const Profile = () => {
   const [work, setWork] = useState('')
   const [link, setLink] = useState('')
   const [biodata, setBiodata] = useState('')
+  const navigate = useNavigate()
 
   const getUserProfile = async () => {
     try {
       if (uuidUser) {
         const user = await GetUserProfile(uuidUser)
         const data = user.data
+        setNewUsername(username)
         setFullname(data.fullname)
         setCategory(data.category)
         setAddress(data.address)
@@ -36,15 +39,10 @@ const Profile = () => {
     }
   }
 
-  const btnEditProfile = () => {
-    setNewUsername(username)
-    document.getElementById('profileCard').classList.add('hidden')
-    document.getElementById('profileEdit').classList.remove('hidden')
-  }
 
   const btnSave = async () => {
     try {
-      const data = await UpdateUserProfile({
+      await UpdateUserProfile({
         uuid_user: uuidUser,
         username: newUsername,
         fullname: fullname,
@@ -54,19 +52,10 @@ const Profile = () => {
         link: link,
         biodata: biodata
       })
-      setUsername(newUsername)
-
-      document.getElementById('profileCard').classList.remove('hidden')
-      document.getElementById('profileEdit').classList.add('hidden')
+      navigate('/profile')
     } catch (error) {
       console.log(error, '<-- error');
     }
-  }
-
-  const btnCancel = () => {
-    document.getElementById('profileCard').classList.remove('hidden')
-    document.getElementById('profileEdit').classList.add('hidden')
-    getUserProfile()
   }
 
   const handleInput = (e) => {
@@ -94,30 +83,19 @@ const Profile = () => {
       <Navbar/>
       <MiniNavbar/>
       <div className='px-20 pt-10 flex flex-row'>
-        <div className="avatar">
+        <div className="avatar cursor-pointer tooltip tooltip-bottom" data-tip='ganti foto profile'>
           <div className="w-72 h-72 rounded-full">
             <img src={profilePicture} />
           </div>
         </div>
 
-        <ProfileCard className='' id='profileCard'
-          username={username}
-          fullname={fullname}
-          category={category}
-          button={<button className="btn btn-sm btn-primary capitalize" onClick={btnEditProfile}>Edit profile</button>}
-          address={address}
-          work={work}
-          link={link}
-          biodata={biodata}
-        />
-
-        <ProfileCard className='hidden' id='profileEdit'
+        <ProfileCard  id='profileEdit'
           username={<SimpleInput placeholder='username' name='username' value={newUsername} onChange={handleInput} />}
           fullname={<SimpleInput placeholder='nama lengkap' name='fullname' value={fullname} onChange={handleInput} className='max-w-xs' />}
           category={<SimpleInput placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
           button={
             <div>
-              <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={btnCancel}>batal</button>
+              <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={() => navigate('/profile')}>batal</button>
               <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
             </div>
           }
@@ -127,10 +105,9 @@ const Profile = () => {
           biodata={<textarea placeholder="Bio" name='biodata' value={biodata} onChange={handleInput} className="textarea textarea-bordered textarea-lg w-full h-64 no-resize"></textarea>}
         />
 
-
       </div>
     </>
   )
 }
 
-export default Profile
+export default EditProfile
