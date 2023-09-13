@@ -12,6 +12,7 @@ const urlServer = process.env.KARYAKU_SERVER
 const Profile = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [username, setUsername] = useGlobalState('username')
+  const [alertSuccessEdit, setAlertSuccessEdit] = useGlobalState('alertSuccessEdit')
   const [newUsername, setNewUsername] = useState('')
   const [fullname, setFullname] = useState('')
   const [category, setCategory] = useState('')
@@ -53,6 +54,10 @@ const Profile = () => {
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
+      <div className={`alert alert-success w-fit absolute top-5 right-20 transition-all duration-200 ${alertSuccessEdit}`} id='succesEdit'>
+        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <span>Data berhasil diperbarui</span>
+      </div>
       <div className='px-20 pt-10 flex flex-row'>
         <div className="avatar cursor-pointer tooltip tooltip-bottom h-full" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
           <div className="w-72 h-72 rounded-full">

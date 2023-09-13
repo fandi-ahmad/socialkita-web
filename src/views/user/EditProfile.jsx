@@ -12,6 +12,7 @@ const urlServer = process.env.KARYAKU_SERVER
 const EditProfile = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [username, setUsername] = useGlobalState('username')
+  const [alertSuccessEdit, setAlertSuccessEdit] = useGlobalState('alertSuccessEdit')
   const [newUsername, setNewUsername] = useState('')
   const [fullname, setFullname] = useState('')
   const [category, setCategory] = useState('')
@@ -61,6 +62,10 @@ const EditProfile = () => {
 
       await UpdateUserProfile(formData)
       navigate('/profile')
+      setAlertSuccessEdit('opacity-100')
+      setTimeout(() => {
+        setAlertSuccessEdit('opacity-0')
+      }, 2000);
     } catch (error) {
       console.log(error, '<-- error');
     }
