@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LogoutUser } from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
-import profilePicture from '../assets/images/blank-profile-picture.png'
+import profilePictureEmpty from '../assets/images/blank-profile-picture.png'
+import { useGlobalState } from '../state/state'
 
 export const Navbar = (props) => {
+  const [profilePicture, setProfilePicture] = useGlobalState('profile_picture')
 
   const navigate = useNavigate()
   const logout = async () => {
@@ -28,7 +30,7 @@ export const Navbar = (props) => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn bg-gray-200 btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={profilePicture} />
+                <img src={profilePicture || profilePictureEmpty} />
               </div>
             </label>
             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">

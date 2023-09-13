@@ -7,6 +7,7 @@ import { SimpleInput } from '../components/baseInput';
 import { Navbar } from '../components/Navbar';
 import { BaseCard } from '../components/BaseCard';
 import { getId } from '../function/baseFunction';
+import { BaseLoading } from '../components/BaseLoading';
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -17,14 +18,10 @@ const Dashboard = () => {
 
   const getAllData = async () => {
     try {
-      // const data = await GetAllUser()
-      // console.log(data, '<-- semua data');
       if (username) {
-        console.log(username, '<-- username dari dashboard');
         getId('hideUsernameModal').click()
       } else {
         getId('usernameModal').showModal()
-        console.log('tidak ada username');        
       }
     } catch (error) {
       console.log(error);
@@ -47,8 +44,6 @@ const Dashboard = () => {
       if (data.status !== 500) {
         getId('hideUsernameModal').click()
       }
-      console.log(data, '<-- response');
-      // data.status === 200 ? setUsername(newUsername) : null
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +56,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <BaseLoading className='hidden' />
       <CheckLogged />
       <Navbar/>
       <div className='px-20 py-10'>

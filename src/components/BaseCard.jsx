@@ -22,12 +22,12 @@ export const BaseCard = (props) => {
           <i className="fa-regular fa-calendar"></i>
           <small className='ms-2'>{props.date || 'september 2023'}</small>
         </div>
-        <p>
+        <span>
           {props.text || 'If a dog chews shoes whose shoes does he choose?'}
           <div className='flex flex-row mt-2'>
             <span className="badge badge-ghost p-3 me-2">Badge</span>
           </div>
-        </p>
+        </span>
         <div className="card-actions justify-start mt-5">
           <BaseButton icon='fa-solid fa-play' text='demo' />
           <BaseButton icon='fa-brands fa-github' text='source code' />

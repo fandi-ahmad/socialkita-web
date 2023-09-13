@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, MiniNavbar } from '../../components/Navbar'
 import { SimpleInput } from '../../components/baseInput'
-import { ProfileCard } from '../../components/ProfileCard'
+import { ProfileCard, ProfileCardInput } from '../../components/ProfileCard'
 import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
 import { CheckLogged } from '../../components/checkLogged'
 import { useGlobalState } from '../../state/state'
 import { GetUserProfile, UpdateUserProfile } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
+import { getId } from '../../function/baseFunction'
 const urlServer = process.env.KARYAKU_SERVER
 
 const EditProfile = () => {
@@ -20,9 +21,12 @@ const EditProfile = () => {
   const [work, setWork] = useState('')
   const [link, setLink] = useState('')
   const [biodata, setBiodata] = useState('')
-  const [profilePicture, setProfilePicture] = useState('')
+  const [profilePicture, setProfilePicture] = useGlobalState('profile_picture')
   const [newProfilePicture, setNewProfilePicture] = useState(null)
   const [newProfilePictureUrl, setNewProfilePictureUrl] = useState('')
+  const [alertErrorUsername, setAlertErrorUsername] = useState('opacity-0 hidden')
+  const [errorText, setErrorText] = useState('')
+  const [inputUsernameClass, setInputUsernameClass] = useState('')
 
   const navigate = useNavigate()
 
@@ -46,26 +50,48 @@ const EditProfile = () => {
     }
   }
 
+  const showAlertError = () => {
+    setInputUsernameClass('input-error')
+    setAlertErrorUsername('opacity-100')
+    setTimeout(() => {
+      setAlertErrorUsername('opacity-0')
+      setTimeout(() => {
+        setAlertErrorUsername('opacity-0 hidden')
+      }, 100);
+    }, 2000);
+  }
 
   const btnSave = async () => {
     try {
-      const formData = new FormData();
-      formData.append('uuid_user', uuidUser)
-      formData.append('username', newUsername)
-      formData.append('fullname', fullname)
-      formData.append('category', category)
-      formData.append('address', address)
-      formData.append('work', work)
-      formData.append('link', link)
-      formData.append('biodata', biodata)
-      formData.append('image_upload', newProfilePicture)
+      if (newUsername.length === 0) {
+        setErrorText('username tidak boleh kosong')
+        showAlertError()
+      } else if (newUsername.indexOf(' ') !== -1) {
+        setErrorText('username tidak boleh ada spasi')
+        showAlertError()
+      } else {
+        const formData = new FormData();
+        formData.append('uuid_user', uuidUser)
+        formData.append('username', newUsername)
+        formData.append('fullname', fullname)
+        formData.append('category', category)
+        formData.append('address', address)
+        formData.append('work', work)
+        formData.append('link', link)
+        formData.append('biodata', biodata)
+        formData.append('image_upload', newProfilePicture)
 
-      await UpdateUserProfile(formData)
-      navigate('/profile')
-      setAlertSuccessEdit('opacity-100')
-      setTimeout(() => {
-        setAlertSuccessEdit('opacity-0')
-      }, 2000);
+        await UpdateUserProfile(formData)
+        navigate('/profile')
+        setAlertSuccessEdit('opacity-100')
+        setTimeout(() => {
+          setAlertSuccessEdit('opacity-0')
+          setTimeout(() => {
+            setAlertSuccessEdit('opacity-0 hidden')
+          }, 100);
+        }, 2000);
+      }
+      
     } catch (error) {
       console.log(error, '<-- error');
     }
@@ -82,6 +108,9 @@ const EditProfile = () => {
       case 'link': setLink(value); break;
       case 'biodata': setBiodata(value); break;
       default: break;
+    }
+    if (newUsername.length > 0 && newUsername.indexOf(' ') === -1) {
+      setInputUsernameClass('')
     }
   };
 
@@ -100,6 +129,12 @@ const EditProfile = () => {
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
+      <div className={`absolute top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertErrorUsername}`} id='errorUsername'>
+        <div className={`alert alert-error w-fit`} >
+          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span>{errorText}</span>
+        </div>
+      </div>
       <div className='px-20 pt-10 flex flex-row'>
         <div className="avatar cursor-pointer tooltip tooltip-bottom h-fit" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
           <div className="w-72 h-72 rounded-full">
@@ -108,8 +143,8 @@ const EditProfile = () => {
           </div>
         </div>
 
-        <ProfileCard  id='profileEdit'
-          username={<SimpleInput placeholder='username' name='username' value={newUsername} onChange={handleInput} />}
+        <ProfileCardInput  id='profileEdit'
+          username={<SimpleInput placeholder='username' name='username' value={newUsername} onChange={handleInput} id='username' className={inputUsernameClass} />}
           fullname={<SimpleInput placeholder='nama lengkap' name='fullname' value={fullname} onChange={handleInput} className='max-w-xs' />}
           category={<SimpleInput placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
           button={

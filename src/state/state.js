@@ -4,7 +4,8 @@ const initialState = {
   count: 435,
   username: '',
   uuidUser: '',
-  alertSuccessEdit: 'opacity-0',
+  alertSuccessEdit: 'opacity-0 hidden',
+  profile_picture: ''
 };
 const { useGlobalState } = createGlobalState(initialState);
 
