@@ -24,6 +24,9 @@ export const Navbar = (props) => {
           <a className="normal-case text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>KaryaKu</a>
         </div>
         <div className="flex-none gap-2">
+          <button className="btn btn-sm btn-primary capitalize" onClick={() => navigate('/project/new')}>
+            project baru <i className="fa-solid fa-plus"></i>
+          </button>
           <div className="form-control">
             <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
           </div>
@@ -62,13 +65,13 @@ export const Navbar = (props) => {
 
 
 export const MiniNavbar = (props) => {
-
+  const navigate = useNavigate()
   return (
     <div className='bg-base-200 w-full px-20'>
-      <button className="btn btn-sm capitalize me-2 bg-base-300">
+      <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile')}>
         <i className="fa-solid fa-book-open"></i> overview
       </button>
-      <button className="btn btn-sm capitalize me-2">
+      <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile/project' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile/project')}>
         <i className="fa-solid fa-briefcase"></i> project
       </button>
     </div>
