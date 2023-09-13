@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Navbar, MiniNavbar } from '../../components/Navbar'
 import { SimpleInput } from '../../components/baseInput'
 import { ProfileCard } from '../../components/ProfileCard'
-import profilePicture from '../../assets/images/blank-profile-picture.png'
+import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
 import { CheckLogged } from '../../components/checkLogged'
 import { useGlobalState } from '../../state/state'
 import { GetUserProfile, UpdateUserProfile } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
+const urlServer = process.env.KARYAKU_SERVER
 
 const EditProfile = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
@@ -18,6 +19,10 @@ const EditProfile = () => {
   const [work, setWork] = useState('')
   const [link, setLink] = useState('')
   const [biodata, setBiodata] = useState('')
+  const [profilePicture, setProfilePicture] = useState('')
+  const [newProfilePicture, setNewProfilePicture] = useState(null)
+  const [newProfilePictureUrl, setNewProfilePictureUrl] = useState('')
+
   const navigate = useNavigate()
 
   const getUserProfile = async () => {
@@ -25,6 +30,7 @@ const EditProfile = () => {
       if (uuidUser) {
         const user = await GetUserProfile(uuidUser)
         const data = user.data
+        setProfilePicture(`http://${urlServer}/${data.profile_picture}`)
         setNewUsername(username)
         setFullname(data.fullname)
         setCategory(data.category)
@@ -42,16 +48,18 @@ const EditProfile = () => {
 
   const btnSave = async () => {
     try {
-      await UpdateUserProfile({
-        uuid_user: uuidUser,
-        username: newUsername,
-        fullname: fullname,
-        category: category,
-        address: address,
-        work: work,
-        link: link,
-        biodata: biodata
-      })
+      const formData = new FormData();
+      formData.append('uuid_user', uuidUser)
+      formData.append('username', newUsername)
+      formData.append('fullname', fullname)
+      formData.append('category', category)
+      formData.append('address', address)
+      formData.append('work', work)
+      formData.append('link', link)
+      formData.append('biodata', biodata)
+      formData.append('image_upload', newProfilePicture)
+
+      await UpdateUserProfile(formData)
       navigate('/profile')
     } catch (error) {
       console.log(error, '<-- error');
@@ -72,6 +80,11 @@ const EditProfile = () => {
     }
   };
 
+  const handleInputFile = (e) => {
+    const imageSelect = e.target.files[0]
+    setNewProfilePicture(imageSelect)
+    setNewProfilePictureUrl(URL.createObjectURL(imageSelect))
+  };
 
   useEffect(() => {
     getUserProfile()
@@ -83,9 +96,10 @@ const EditProfile = () => {
       <Navbar/>
       <MiniNavbar/>
       <div className='px-20 pt-10 flex flex-row'>
-        <div className="avatar cursor-pointer tooltip tooltip-bottom" data-tip='ganti foto profile'>
+        <div className="avatar cursor-pointer tooltip tooltip-bottom h-fit" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
           <div className="w-72 h-72 rounded-full">
-            <img src={profilePicture} />
+            <img src={newProfilePictureUrl || profilePicture || profilePictureEmpty} onClick={() => document.getElementById('inputFile').click()} className='w-full hover:brightness-90 duration-200' />
+            <input type="file" className='hidden' id='inputFile' name='profile_picture'  onChange={handleInputFile} />
           </div>
         </div>
 

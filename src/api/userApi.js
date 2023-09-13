@@ -2,11 +2,19 @@ import axios from "axios";
 const apiUrl = 'http://localhost:8000/api/v1/auth'
 const apiUser = 'http://localhost:8000/api/v1/user'
 
+const headers = () => {
+  return {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }
+}
+
 
 const callApi = (method, url, data = null) => {
   return axios[method](url, data, {
     withCredentials: true,
-  })
+  }, headers())
   .then(response => response.data)
   .catch(error => error.response);
 };
@@ -54,10 +62,6 @@ export const GetUserProfile = (uuid) => {
   .then(response => response.data)
   .catch(error => error.response)
 }
-
-// export const UpdateUserProfile = (data) => {
-//   return callApi('put', `${apiUrl}/user/update`, data)
-// }
 
 export const UpdateUserProfile = (data) => {
   return callApi('put', `${apiUser}/update`, data)

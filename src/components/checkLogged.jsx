@@ -15,7 +15,6 @@ export const CheckLogged = () => {
         const data = await GetUserLogin()
         setUuidUser(data.data.uuid)
         setUsername(data.data.username)
-        console.log(data.data);
         if (data.status === 401) {
           setIsLoggedIn(false);
           navigate('/login')
