@@ -8,7 +8,7 @@ export const BaseCard = (props) => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure><img src={props.imageUse || images} alt="Shoes" /></figure>
-      <div className="card-body">
+      <div className="card-body flex">
         <div className='flex flex-row'>
           <div className="avatar">
             <div className="w-8 rounded-full me-2">
@@ -28,9 +28,23 @@ export const BaseCard = (props) => {
             <span className="badge badge-ghost p-3 me-2">Badge</span>
           </div>
         </span>
-        <div className="card-actions justify-start mt-5">
-          <BaseButton icon='fa-solid fa-play' text='demo' />
-          <BaseButton icon='fa-brands fa-github' text='source code' />
+        <div className="card-actions flex flex-grow justify-between items-end mt-5">
+          <div>
+            <BaseButton icon='fa-solid fa-play' text='demo' className='me-4' />
+            <BaseButton icon='fa-brands fa-github' text='source code' />
+          </div>
+          <div className='h-12 flex items-center justify-center'>
+            <div className='dropdown dropdown-bottom dropdown-end cursor-pointer' tabIndex={0} >
+              <label className="m-1 cursor-pointer">
+                <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+              </label>
+              <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a>Edit</a></li>
+                <li><a>Hapus</a></li>
+                <li><a>Arsipkan</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
