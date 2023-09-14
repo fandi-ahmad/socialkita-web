@@ -20,7 +20,7 @@ export const CheckLogged = () => {
         const picture = data.data.profile_picture
         picture === null || picture === undefined || picture === ''
         ? setProfilePicture('')
-        : setProfilePicture(`http://${urlServer}/${data.data.profile_picture}`)
+        : setProfilePicture(`${urlServer}/${data.data.profile_picture}`)
 
 
         if (data.status === 401) {

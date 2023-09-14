@@ -29,7 +29,7 @@ const Profile = () => {
         const user = await GetUserProfile(uuidUser)
         const data = user.data
 
-        setProfilePicture(`http://${urlServer}/${data.profile_picture}`)
+        setProfilePicture(`${urlServer}/${data.profile_picture}`)
         setFullname(data.fullname)
         setCategory(data.category)
         setAddress(data.address)

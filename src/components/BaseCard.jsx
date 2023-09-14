@@ -1,18 +1,28 @@
 import React from 'react'
 import { BaseButton } from './BaseButton'
-import profilePicture from '../assets/images/blank-profile-picture.png'
+import profilePictureEmpty from '../assets/images/blank-profile-picture.png'
 
 export const BaseCard = (props) => {
   const images = 'https://hygger.io/wp-content/uploads/2018/11/389913ecaf218dff96ba78770abdeb84.jpg'
-  const randomPeople = 'https://www.rri.res.in/sites/default/files/2022-09/Abhisek%20Tamang.jpg'
+
+  const showHideButton = (propsSelected, icon, text) => {
+    if (propsSelected) {
+      return (
+        <a target='_blank' href={propsSelected}>
+          <BaseButton icon={icon} text={text} className='me-4' />
+        </a>
+      )
+    }
+  }
+
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
-      <figure><img src={props.imageUse || images} alt="Shoes" /></figure>
+      <figure className='h-60'><img src={props.projectImage || images} className='object-cover object-center w-full' /></figure>
       <div className="card-body flex">
         <div className='flex flex-row'>
           <div className="avatar">
             <div className="w-8 rounded-full me-2">
-              <img src={randomPeople} />
+              <img src={props.profilePicture || profilePictureEmpty} />
             </div>
           </div>
           <h2 className="card-title">{props.title || 'Example title for project'}</h2>
@@ -30,13 +40,13 @@ export const BaseCard = (props) => {
         </span>
         <div className="card-actions flex flex-grow justify-between items-end mt-5">
           <div>
-            <BaseButton icon='fa-solid fa-play' text='demo' className='me-4' />
-            <BaseButton icon='fa-brands fa-github' text='source code' />
+            {showHideButton(props.demoLink, 'fa-solid fa-play', 'demo')}
+            {showHideButton(props.sourceCode, 'fa-brands fa-github', 'source code')}
           </div>
           <div className='h-12 flex items-center justify-center'>
             <div className='dropdown dropdown-bottom dropdown-end cursor-pointer' tabIndex={0} >
               <label className="m-1 cursor-pointer">
-                <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+                <i className="fa-solid fa-ellipsis-vertical fa-xl"></i>
               </label>
               <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                 <li><a>Edit</a></li>
