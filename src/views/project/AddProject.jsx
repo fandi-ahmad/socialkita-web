@@ -6,32 +6,63 @@ import { CreateProject } from '../../api/projectApi'
 import { BaseButton } from '../../components/BaseButton'
 import { useGlobalState } from '../../state/state'
 import { getId } from '../../function/baseFunction'
+import { BaseAlert } from '../../components/BaseAlert'
 
 
 const AddProject = () => {
   const navigate = useNavigate()
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
+  const [pagePrevious, setPagePrevious] = useGlobalState('pagePrevious')
+  const [alertClass, setAlertClass] = useGlobalState('alertClass')
   const [projectImage, setProjectImage] = useState(null)
   const [projectImageUrl, setProjectImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [demoLink, setDemoLink] = useState('')
   const [sourceCode, setSourceCode] = useState('')
+  const [heightPage, setHeightPage] = useState(0)
+  const [alertMsg, setAlertMsg] = useState('')
+
+  const showAlertError = (message) => {
+    setAlertMsg(message)
+    getId('errorAlert').classList.remove('hidden')
+    setTimeout(() => {
+      getId('errorAlert').classList.add('opacity-0')
+      setTimeout(() => {
+        getId('errorAlert').classList.remove('opacity-0')
+        getId('errorAlert').classList.add('hidden')
+      }, 100);
+    }, 2000);
+  }
 
 
   const createProject = async () => {
     try {
-      const formData = new FormData();
-      formData.append('uuid_user', uuidUser)
-      formData.append('image_upload', projectImage)
-      formData.append('title', title)
-      formData.append('description', description)
-      formData.append('demo_link', demoLink)
-      formData.append('source_code', sourceCode)
+      if (projectImage === null || title === '' || description === '') {
+        showAlertError('gambar, judul dan deskripsi project harus terisi.')
+      } else {
+        setHeightPage(document.body.scrollHeight)
+        getId('loading').classList.remove('hidden')
 
-      const create = await CreateProject(formData)
+        const formData = new FormData();
+        formData.append('uuid_user', uuidUser)
+        formData.append('image_upload', projectImage)
+        formData.append('title', title)
+        formData.append('description', description)
+        formData.append('demo_link', demoLink)
+        formData.append('source_code', sourceCode)
 
-      console.log(create, '<-- success');
+        await CreateProject(formData)
+        navigate('/')
+        setAlertClass('')
+        setTimeout(() => {
+          setAlertClass('opacity-0')
+          setTimeout(() => {
+            setAlertClass('hidden')
+          }, 100);
+        }, 2000);
+
+      }
       
     } catch (error) {
       console.log(error, '<-- error create project');
@@ -39,9 +70,18 @@ const AddProject = () => {
   }
 
   const handleInputFile = (e) => {
-    const imageSelect = e.target.files[0]
-    setProjectImage(imageSelect)
-    setProjectImageUrl(URL.createObjectURL(imageSelect))
+    const imageSelect = e.target.files[0];
+  
+    // get extension file
+    const fileExtension = imageSelect.name.split(".").pop().toLowerCase();
+  
+    // check if extension is .jpg, .jpeg, .png
+    if (["jpg", "jpeg", "png"].includes(fileExtension)) {
+      setProjectImage(imageSelect);
+      setProjectImageUrl(URL.createObjectURL(imageSelect));
+    } else {
+      showAlertError('Hanya file dengan ekstensi .jpg, .jpeg, atau .png yang diterima.')
+    }
   };
 
   const handleInput = (e) => {
@@ -85,18 +125,21 @@ const AddProject = () => {
   return (
     <>
       <CheckLogged />
+      <BaseAlert type='error' text={alertMsg} className='hidden' id='errorAlert' />
+      <div id='loading' className='hidden absolute z-30 w-full bg-gray-800 bg-opacity-50 flex justify-center items-center' style={{ height: heightPage }}>
+        <span className="loading loading-spinner text-primary loading-lg"></span>
+      </div>
+
       <div className='px-20 py-10'>
 
         <div className='flex justify-between items-center'>
           <h1 className='font-bold text-2xl'>Project Baru</h1>
-          <div className='cursor-pointer' title='close' onClick={() => navigate('/')}>
+          <div className='cursor-pointer' title='close' onClick={() => navigate(pagePrevious)}>
             <i className="fa-solid fa-xmark fa-2xl"></i>
           </div>
         </div>
 
         <hr className='my-8' />
-
-        <button className='btn' onClick={() => console.log(projectImage)}>cek</button>
 
         <div className='flex flex-row w-100'>
           <div className='w-96 mr-20'>
@@ -104,17 +147,20 @@ const AddProject = () => {
           </div>
 
           <div className='flex-grow'>
-            <SimpleInput label='judul project' placeholder='judul project' className='mb-4' value={title} name='title' onChange={handleInput} />
-            <label className="w-full text-start capitalize">deskripsi singkat project</label>
-            <textarea placeholder="deskripsi singkat project" name='description' value={description} onChange={handleInput} className="mb-4 textarea textarea-bordered textarea-lg w-full h-64 no-resize"></textarea>
-            <div className='flex justify-between'>
-              <div className='flex-grow mr-8'>
-                <SimpleInput name='demoLink' value={demoLink} onChange={handleInput} label={<><i className="fa-solid fa-play mr-1"></i> demo link</> } placeholder='demo link' className='mb-4' />
+            <form>
+              <SimpleInput label='judul project*' placeholder='judul project' className='mb-4' value={title} name='title' onChange={handleInput} />
+              <label className="w-full text-start capitalize">deskripsi singkat project*</label>
+              <textarea placeholder="deskripsi singkat project" name='description' value={description} onChange={handleInput} className="mb-4 textarea textarea-bordered textarea-lg w-full h-64 no-resize"></textarea>
+              <div className='flex justify-between'>
+                <div className='flex-grow mr-8'>
+                  <SimpleInput name='demoLink' value={demoLink} onChange={handleInput} label={<><i className="fa-solid fa-play mr-1"></i> demo link</> } placeholder='demo link' className='mb-4' />
+                </div>
+                <div className='flex-grow'>
+                  <SimpleInput name='sourceCode' value={sourceCode} onChange={handleInput} label={<><i className="fa-brands fa-github mr-1"></i> source code</>} placeholder='source code' className='mb-4' />
+                </div>
               </div>
-              <div className='flex-grow'>
-                <SimpleInput name='sourceCode' value={sourceCode} onChange={handleInput} label={<><i className="fa-brands fa-github mr-1"></i> source code</>} placeholder='source code' className='mb-4' />
-              </div>
-            </div>
+
+            </form>
 
             <div className='mt-5 flex justify-end'>
               <BaseButton className='btn-primary' text='buat sekarang' onClick={btnCreateProject}  />

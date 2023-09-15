@@ -8,12 +8,14 @@ import { BaseCard } from '../components/BaseCard';
 import { getId } from '../function/baseFunction';
 import { BaseLoading } from '../components/BaseLoading';
 import { GetAllProjectList } from '../api/projectApi';
+import { BaseAlert } from '../components/BaseAlert';
 const urlServer = process.env.KARYAKU_SERVER
 
 const Dashboard = () => {
   const navigate = useNavigate()
   const [username, setUsername] = useGlobalState('username')
   const [projectList, setProjectList] = useState([])
+  const [alertClass, setAlertClass] = useGlobalState('alertClass')
 
   const getAllData = async () => {
     try {
@@ -40,11 +42,7 @@ const Dashboard = () => {
     getAllProjectList()
   }, [])
 
-  useEffect(() => {
-    if (projectList.length > 0) {
-      console.log(projectList, '<-- semua project');
-    }
-  }, [projectList])
+ 
   
   useEffect(() => {
     getAllData()
@@ -56,9 +54,10 @@ const Dashboard = () => {
       <BaseLoading className='hidden' />
       <CheckLogged />
       <Navbar/>
+      <BaseAlert type='success' text='projectmu berhasil ditambahkan' className={alertClass} />
       <div className='px-20 py-10'>
         <div className='grid grid-cols-3 gap-4'>
-        {projectList.map((project) => (
+          {projectList.map((project) => (
             <div className='flex flex-grow' key={project.id}>
               <BaseCard 
                 title={project.title}

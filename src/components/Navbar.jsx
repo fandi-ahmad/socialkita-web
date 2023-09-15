@@ -6,8 +6,14 @@ import { useGlobalState } from '../state/state'
 
 export const Navbar = (props) => {
   const [profilePicture, setProfilePicture] = useGlobalState('profile_picture')
-
+  const [pagePrevious, setPagePrevious] = useGlobalState('pagePrevious')
   const navigate = useNavigate()
+
+  const newProjectBtn = () => {
+    setPagePrevious(location.pathname)
+    navigate('/project/new')
+  }
+
   const logout = async () => {
     try {
       await LogoutUser()
@@ -24,7 +30,7 @@ export const Navbar = (props) => {
           <a className="normal-case text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>KaryaKu</a>
         </div>
         <div className="flex-none gap-2">
-          <button className="btn btn-sm btn-primary capitalize" onClick={() => navigate('/project/new')}>
+          <button className="btn btn-sm btn-primary capitalize" onClick={newProjectBtn}>
             project baru <i className="fa-solid fa-plus"></i>
           </button>
           <div className="form-control">

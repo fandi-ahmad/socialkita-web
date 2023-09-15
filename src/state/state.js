@@ -1,11 +1,12 @@
 import { createGlobalState } from 'react-hooks-global-state'
 
 const initialState = {
-  count: 435,
   username: null,
   uuidUser: '',
   alertSuccessEdit: 'opacity-0 hidden',
-  profile_picture: ''
+  alertClass: 'hidden',
+  profile_picture: '',
+  pagePrevious: '/',
 };
 const { useGlobalState } = createGlobalState(initialState);
 
