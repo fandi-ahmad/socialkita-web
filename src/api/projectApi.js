@@ -33,3 +33,7 @@ export const CreateProject = (data) => {
 export const GetProjectListByUser = (uuid) => {
   return callApiGet(`${apiProject}/${uuid}`)
 }
+
+export const GetAllProjectList = () => {
+  return callApiGet(apiProject)
+}

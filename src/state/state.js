@@ -2,7 +2,7 @@ import { createGlobalState } from 'react-hooks-global-state'
 
 const initialState = {
   count: 435,
-  username: '',
+  username: null,
   uuidUser: '',
   alertSuccessEdit: 'opacity-0 hidden',
   profile_picture: ''

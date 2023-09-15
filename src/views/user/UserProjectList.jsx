@@ -37,7 +37,7 @@ const UserProjectList = () => {
       <div className='px-20 py-10'>
         <div className='grid grid-cols-3 gap-4'>
           {projectList.map((project) => (
-            <div key={project.id}>
+            <div className='flex flex-grow' key={project.id}>
               <BaseCard
                 title={project.title}
                 text={project.description}
@@ -46,6 +46,7 @@ const UserProjectList = () => {
                 profilePicture={profilePicture}
                 demoLink={project.demo_link}
                 sourceCode={project.source_code}
+                showMenu='show'
               />
 
             </div>
