@@ -158,25 +158,27 @@ const UserProjectList = () => {
       <MiniNavbar/>
       <LoadingScreen id='loadingScreen' />
       <BaseAlert type={alertType} text={alertMsg} className='hidden' id='alertMessageList' />
-      <div className='px-20 py-10'>
-        <LoadingData/>
-        <div className='grid grid-cols-3 gap-4'>
-          {projectList.map((project) => (
-            <div className='flex flex-grow' key={project.uuid}>
-              <BaseCard
-                title={project.title}
-                text={project.description}
-                date={formatDate(project.createdAt)}
-                projectImage={urlServer+'/'+project.project_image}
-                profilePicture={profilePicture}
-                demoLink={project.demo_link}
-                sourceCode={project.source_code}
-                showMenu='show'
-                onClickEdit={() => editProject(project)}
-                onClickDelete={() => deleteProject(project.uuid)}
-              />
-            </div>
-          ))}
+      <div>
+        <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
+          <LoadingData/>
+          <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-4'>
+            {projectList.map((project) => (
+              <div className='flex flex-grow' key={project.uuid}>
+                <BaseCard
+                  title={project.title}
+                  text={project.description}
+                  date={formatDate(project.createdAt)}
+                  projectImage={urlServer+'/'+project.project_image}
+                  profilePicture={profilePicture}
+                  demoLink={project.demo_link}
+                  sourceCode={project.source_code}
+                  showMenu='show'
+                  onClickEdit={() => editProject(project)}
+                  onClickDelete={() => deleteProject(project.uuid)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -221,10 +223,6 @@ const UserProjectList = () => {
                 <i className="fa-brands fa-github mr-4"></i>
                 <InputText className='w-full' placeholder='source code' value={sourceCode} name='sourceCode' onChange={handleInput} theme={theme} />
               </div>
-              {/* <SimpleInput placeholder='judul project' value={title} onChange={handleInput} name='title' className='font-bold mb-4' />
-              <textarea placeholder="deskripsi singkat project" value={description} onChange={handleInput} name='description' className="mb-4 textarea textarea-bordered textarea-lg w-full h-56 no-resize"></textarea> */}
-              {/* <SimpleInput placeholder='demo link' value={demoLink} onChange={handleInput} name='demoLink' className='mb-4' /> */}
-              {/* <SimpleInput placeholder='source code' value={sourceCode} onChange={handleInput} name='sourceCode' className='mb-4' /> */}
             </div>
           </div>
           <div className='flex justify-end mt-4'>

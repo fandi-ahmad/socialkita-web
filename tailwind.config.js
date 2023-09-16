@@ -5,12 +5,18 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1320px',
+      '2xl': '1536px',
+    },
     extend: {},
   },
   plugins: [require("daisyui")],
   daisyui: {
     themes: ["light", "dark", "cupcake"],
-    // themes: ["dark", "cupcake"],
   },
 }
 

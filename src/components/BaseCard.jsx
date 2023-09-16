@@ -39,7 +39,7 @@ export const BaseCard = (props) => {
 
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl" key={props.key}>
+    <div className="card bg-base-100 shadow-xl mx-auto w-80 sm:w-96 lg:mx-0 md:w-72 lg:w-96" key={props.key}>
       <figure className='h-60'>
         <img src={!props.projectImage || props.projectImage === urlServer+'/' ? exampleImage : props.projectImage} 
           className='object-cover object-center w-full h-full' />

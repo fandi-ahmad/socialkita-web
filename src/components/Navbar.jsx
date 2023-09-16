@@ -25,37 +25,40 @@ export const Navbar = (props) => {
 
   return (
     <>
-      <div className="navbar bg-base-200 px-20">
-        <div className="flex-1">
-          <a className="normal-case text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>KaryaKu</a>
-        </div>
-        <div className="flex-none gap-2">
-          <button className="btn btn-sm btn-primary capitalize" onClick={newProjectBtn}>
-            project baru <i className="fa-solid fa-plus"></i>
-          </button>
-          <div className="form-control">
-            <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+      <div className='bg-base-200'>
+        <div className="navbar bg-base-200 px-10 mx-auto" style={{maxWidth: '1380px'}}>
+          <div className="flex-1">
+            <a className="normal-case text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>KaryaKu</a>
           </div>
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn bg-gray-200 btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img src={profilePicture || profilePictureEmpty} />
-              </div>
-            </label>
-            <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-              <li>
-                <a className='py-2' onClick={() => navigate('/profile')}><i className="fa-solid fa-user"></i>Profile</a>
-              </li>
-              <li>
-                <a className='py-2' onClick={() => navigate('/profile/project')}><i className="fa-solid fa-briefcase"></i>Project</a>
-              </li>
-              <li><a className='py-2'><i className="fa-solid fa-gear"></i>Settings</a></li>
-              <li>
-                <a className='py-2' onClick={()=>document.getElementById('my_modal_1').showModal()}><i className="fa-solid fa-right-from-bracket"></i>Logout</a>
-              </li>
-            </ul>
+          <div className="flex-none gap-2">
+            <button className="btn btn-sm btn-primary capitalize" onClick={newProjectBtn}>
+              project baru <i className="fa-solid fa-plus"></i>
+            </button>
+            <div className="form-control">
+              <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+            </div>
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn bg-gray-200 btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img src={profilePicture || profilePictureEmpty} />
+                </div>
+              </label>
+              <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                  <a className='py-2' onClick={() => navigate('/profile')}><i className="fa-solid fa-user"></i>Profile</a>
+                </li>
+                <li>
+                  <a className='py-2' onClick={() => navigate('/profile/project')}><i className="fa-solid fa-briefcase"></i>Project</a>
+                </li>
+                <li><a className='py-2'><i className="fa-solid fa-gear"></i>Settings</a></li>
+                <li>
+                  <a className='py-2' onClick={()=>document.getElementById('my_modal_1').showModal()}><i className="fa-solid fa-right-from-bracket"></i>Logout</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+
       </div>
 
       <dialog id="my_modal_1" className="modal">
@@ -78,13 +81,15 @@ export const Navbar = (props) => {
 export const MiniNavbar = (props) => {
   const navigate = useNavigate()
   return (
-    <div className='bg-base-200 w-full px-20'>
-      <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile')}>
-        <i className="fa-solid fa-book-open"></i> overview
-      </button>
-      <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile/project' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile/project')}>
-        <i className="fa-solid fa-briefcase"></i> project
-      </button>
+    <div className='bg-base-200'>
+      <div className='bg-base-200 w-full px-10 mx-auto' style={{maxWidth: '1380px'}}>
+        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile')}>
+          <i className="fa-solid fa-book-open"></i> overview
+        </button>
+        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile/project' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile/project')}>
+          <i className="fa-solid fa-briefcase"></i> project
+        </button>
+      </div>
     </div>
   )
 }

@@ -129,36 +129,39 @@ const EditProfile = () => {
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
-      <div className={`absolute top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertErrorUsername}`} id='errorUsername'>
+      <div className={`fixed top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertErrorUsername}`} id='errorUsername'>
         <div className={`alert alert-error w-fit`} >
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <span>{errorText}</span>
         </div>
       </div>
-      <div className='px-20 pt-10 flex flex-row'>
-        <div className="avatar cursor-pointer tooltip tooltip-bottom h-fit" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
-          <div className="w-72 h-72 rounded-full">
-            <img src={newProfilePictureUrl || profilePicture || profilePictureEmpty} onClick={() => document.getElementById('inputFile').click()} className='w-full hover:brightness-90 duration-200' />
-            <input type="file" className='hidden' id='inputFile' name='profile_picture'  onChange={handleInputFile} />
-          </div>
-        </div>
 
-        <ProfileCardInput  id='profileEdit'
-          username={<InputText placeholder='username' name='username' value={newUsername} onChange={handleInput} id='username' className={inputUsernameClass} />}
-          fullname={<InputText placeholder='nama lengkap' name='fullname' value={fullname} onChange={handleInput} className='max-w-xs' />}
-          category={<InputText placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
-          button={
-            <div>
-              <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={() => navigate('/profile')}>batal</button>
-              <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
+      <div>
+        <div className='px-10 pt-10 flex flex-col md:flex-row mx-auto' style={{maxWidth: '1380px'}}>
+          <div className="avatar cursor-pointer tooltip tooltip-bottom h-fit flex justify-center" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
+            <div className="w-72 h-72 rounded-full">
+              <img src={newProfilePictureUrl || profilePicture || profilePictureEmpty} onClick={() => document.getElementById('inputFile').click()} className='w-full hover:brightness-90 duration-200' />
+              <input type="file" className='hidden' id='inputFile' name='profile_picture'  onChange={handleInputFile} />
             </div>
-          }
-          address={<InputText placeholder='alamat' name='address' value={address} onChange={handleInput} />}
-          work={<InputText placeholder='tempat kerja' name='work' value={work} onChange={handleInput} />}
-          link={<InputText placeholder='link' name='link' value={link} onChange={handleInput} />}
-          biodata={<InputTextArea placeholder='Tambahkan biodata' name='biodata' value={biodata} onChange={handleInput} height='h-60 border-b-0 focus:border-0' />}
-        />
+          </div>
 
+          <ProfileCardInput  id='profileEdit'
+            username={<InputText placeholder='username' name='username' value={newUsername} onChange={handleInput} id='username' className={inputUsernameClass} />}
+            fullname={<InputText placeholder='nama lengkap' name='fullname' value={fullname} onChange={handleInput} className='max-w-xs' />}
+            category={<InputText placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
+            button={
+              <div>
+                <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={() => navigate('/profile')}>batal</button>
+                <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
+              </div>
+            }
+            address={<InputText placeholder='alamat' name='address' value={address} onChange={handleInput} />}
+            work={<InputText placeholder='tempat kerja' name='work' value={work} onChange={handleInput} />}
+            link={<InputText placeholder='link' name='link' value={link} onChange={handleInput} />}
+            biodata={<InputTextArea placeholder='Tambahkan biodata' name='biodata' value={biodata} onChange={handleInput} height='h-60 border-b-0 focus:border-0' />}
+          />
+
+        </div>
       </div>
     </>
   )

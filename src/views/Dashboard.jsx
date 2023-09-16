@@ -56,24 +56,27 @@ const Dashboard = () => {
       <CheckLogged />
       <Navbar/>
       <BaseAlert type='success' text='projectmu berhasil ditambahkan' className={alertClass} />
-      <div className='px-20 py-10'>
-        <LoadingData/>
-        <div className='grid grid-cols-3 gap-4'>
-          {projectList.map((project) => (
-            <div className='flex flex-grow' key={project.id}>
-              <BaseCard 
-                title={project.title}
-                username={project.username}
-                text={project.description}
-                date={formatDate(project.createdAt)}
-                projectImage={urlServer+'/'+project.project_image}
-                profilePicture={urlServer+'/'+project.profile_picture}
-                demoLink={project.demo_link}
-                sourceCode={project.source_code}
-              />
-            </div>
-          ))}
+      <div>
+        <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
+          <LoadingData/>
+          <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-4'>
+            {projectList.map((project) => (
+              <div className='flex flex-grow mx-auto' key={project.id}>
+                <BaseCard 
+                  title={project.title}
+                  username={project.username}
+                  text={project.description}
+                  date={formatDate(project.createdAt)}
+                  projectImage={urlServer+'/'+project.project_image}
+                  profilePicture={urlServer+'/'+project.profile_picture}
+                  demoLink={project.demo_link}
+                  sourceCode={project.source_code}
+                />
+              </div>
+            ))}
 
+
+          </div>
         </div>
       </div>
     </>

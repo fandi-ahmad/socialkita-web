@@ -130,53 +130,51 @@ const AddProject = () => {
       <CheckLogged />
       <BaseAlert type='error' text={alertMsg} className='hidden' id='errorAlert' />
       <LoadingScreen id='loading' heightPage={heightPage} />
-      <div className='px-20 py-10'>
-
-        <div className='flex justify-between items-center'>
-          <h1 className='font-bold text-2xl'>Project Baru</h1>
-          <div className='cursor-pointer' title='close' onClick={() => navigate(pagePrevious)}>
-            <i className="fa-solid fa-xmark fa-2xl"></i>
-          </div>
-        </div>
-
-        <hr className='my-8' />
-
-        <div className='flex flex-row w-100'>
-          <div className='w-96 mr-20'>
-            {showHideProjectImage()}
+      <div>
+        <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
+          <div className='flex justify-between items-center'>
+            <h1 className='font-bold text-2xl'>Project Baru</h1>
+            <div className='cursor-pointer' title='close' onClick={() => navigate(pagePrevious)}>
+              <i className="fa-solid fa-xmark fa-2xl"></i>
+            </div>
           </div>
 
-          <div className='flex-grow'>
-            <form>
-              <InputText placeholder='Tambahkan judul' className='mb-8 font-bold text-xl' value={title} name='title' onChange={handleInput} theme={theme} />
-              <InputTextArea placeholder='Tambahkan deskripsi singkat' className='mb-8' name='description' value={description} onChange={handleInput} theme={theme} />
+          <hr className='my-8' />
 
-              <div className='flex justify-between mb-8'>
-                <div className='flex-grow mr-12'>
-                  <div className='flex items-center'>
-                    <i className="fa-solid fa-play mr-4"></i>
-                    <InputText className='w-full' placeholder='demo link' value={demoLink} name='demoLink' onChange={handleInput} theme={theme} />
-                  </div>
-                </div>
-                <div className='flex-grow'>
-                  <div className="flex items-center">
-                    <i className="fa-brands fa-github mr-4"></i>
-                    <InputText className='w-full' placeholder='source code' value={sourceCode} name='sourceCode' onChange={handleInput} theme={theme} />
-                  </div>
-                </div>
-              </div>
-
-            </form>
-
-            <div className='mt-5 flex justify-end'>
-              <BaseButton className='btn-primary' text='buat sekarang' onClick={btnCreateProject}  />
+          <div className='flex flex-row w-100'>
+            <div className='w-96 mr-20'>
+              {showHideProjectImage()}
             </div>
 
+            <div className='flex-grow'>
+              <form>
+                <InputText placeholder='Tambahkan judul' className='mb-8 font-bold text-xl' value={title} name='title' onChange={handleInput} theme={theme} />
+                <InputTextArea placeholder='Tambahkan deskripsi singkat' className='mb-8' name='description' value={description} onChange={handleInput} theme={theme} />
+
+                <div className='flex justify-between mb-8'>
+                  <div className='flex-grow mr-12'>
+                    <div className='flex items-center'>
+                      <i className="fa-solid fa-play mr-4"></i>
+                      <InputText className='w-full' placeholder='demo link' value={demoLink} name='demoLink' onChange={handleInput} theme={theme} />
+                    </div>
+                  </div>
+                  <div className='flex-grow'>
+                    <div className="flex items-center">
+                      <i className="fa-brands fa-github mr-4"></i>
+                      <InputText className='w-full' placeholder='source code' value={sourceCode} name='sourceCode' onChange={handleInput} theme={theme} />
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+
+              <div className='mt-5 flex justify-end'>
+                <BaseButton className='btn-primary' text='buat sekarang' onClick={btnCreateProject}  />
+              </div>
+
+            </div>
           </div>
         </div>
-
-
-
       </div>
     </>
   )

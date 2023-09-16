@@ -28,7 +28,7 @@ export const ProfileCard = (props) => {
   }
 
   return (
-    <div className={`w-full ms-16 ${props.className}`} id={props.id}>
+    <div className={`w-full mt-8 md:mt-0 md:ms-16 ${props.className}`} id={props.id}>
       <div className='w-full pb-4 flex justify-between'>
         <p className='text-2xl'>{props.username}</p>
         {props.button}
@@ -51,7 +51,7 @@ export const ProfileCard = (props) => {
 
 export const ProfileCardInput = (props) => {
   return (
-    <div className={`w-full ms-16 ${props.className}`} id={props.id}>
+    <div className={`w-full mt-8 md:mt-0 md:ms-16 ${props.className}`} id={props.id}>
       <div className='w-full pb-4 flex justify-between'>
         <p className='text-2xl'>{props.username}</p>
         {props.button}
