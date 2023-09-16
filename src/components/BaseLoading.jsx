@@ -7,3 +7,11 @@ export const BaseLoading = (props) => {
     </div>
   )
 }
+
+export const LoadingScreen = (props) => {
+  return (
+    <div id={props.id} className='hidden fixed top-0 z-30 w-full h-screen bg-gray-800 bg-opacity-50 flex justify-center items-center' style={{ height: props.heightPage }}>
+      <span className="loading loading-spinner text-primary loading-lg"></span>
+    </div>
+  )
+}

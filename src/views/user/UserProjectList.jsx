@@ -8,6 +8,7 @@ import { SimpleInput } from '../../components/baseInput'
 import { BaseButton } from '../../components/BaseButton'
 import { getId } from '../../function/baseFunction'
 import { BaseAlert } from '../../components/BaseAlert'
+import { BaseLoading, LoadingScreen } from '../../components/BaseLoading'
 const urlServer = process.env.KARYAKU_SERVER
 
 
@@ -17,6 +18,7 @@ const UserProjectList = () => {
   const [projectList, setProjectList] = useState([])
   const [alertMsg, setAlertMsg] = useState('')
   const [alertType, setAlertType] = useState('')
+  const [heightPage, setHeightPage] = useState(0)
 
 
   // for edit project
@@ -119,6 +121,30 @@ const UserProjectList = () => {
     }
   }
 
+  const deleteProject = (uuid_project) => {
+    setUuid(uuid_project);
+    getId('deleteModal').showModal()
+  }
+  
+  const confirmDeleteProject = async () => {
+    try {
+      getId('loadingScreen').classList.remove('hidden')
+      getId('closeModalDelete').click()
+      const response = await DeleteProject(uuid)
+
+      getId('loadingScreen').classList.add('hidden')
+      response.status === 200
+      ? showAlert('success', 'project berhasil dihapus', 'alertMessageList')
+      : showAlert('error', 'terjadi kesalahan!', 'alertMessageList')
+
+      setTimeout(() => {
+        getAllData()
+      }, 100);
+    } catch (error) {
+      console.log(error, '<-- error delete project');
+    }
+  }
+
   useEffect(() => {
     getAllData()
   }, [uuidUser])
@@ -129,6 +155,7 @@ const UserProjectList = () => {
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
+      <LoadingScreen id='loadingScreen' />
       <BaseAlert type={alertType} text={alertMsg} className='hidden' id='alertMessageList' />
       <div className='px-20 py-10'>
         <div className='w-full flex justify-center' id='loading'>
@@ -147,11 +174,26 @@ const UserProjectList = () => {
                 sourceCode={project.source_code}
                 showMenu='show'
                 onClickEdit={() => editProject(project)}
+                onClickDelete={() => deleteProject(project.uuid)}
               />
             </div>
           ))}
         </div>
       </div>
+
+      <dialog id="deleteModal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg text-center">Yakin ingin menghapus project?</h3>
+          <p className="py-4 text-center">Anda tidak dapat membatalkan ini</p>
+          <div className="modal-action flex justify-center">
+            <button className="btn btn-primary" onClick={confirmDeleteProject}>Ya</button>
+            <form method="dialog">
+              <button className="btn" id='closeModalDelete'>tidak</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
 
       <input type="checkbox" id="my_modal_62" className="modal-toggle" />
       <div className="modal">

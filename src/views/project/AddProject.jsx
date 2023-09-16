@@ -7,6 +7,7 @@ import { BaseButton } from '../../components/BaseButton'
 import { useGlobalState } from '../../state/state'
 import { getId } from '../../function/baseFunction'
 import { BaseAlert } from '../../components/BaseAlert'
+import { LoadingScreen } from '../../components/BaseLoading'
 
 
 const AddProject = () => {
@@ -126,10 +127,7 @@ const AddProject = () => {
     <>
       <CheckLogged />
       <BaseAlert type='error' text={alertMsg} className='hidden' id='errorAlert' />
-      <div id='loading' className='hidden absolute z-30 w-full bg-gray-800 bg-opacity-50 flex justify-center items-center' style={{ height: heightPage }}>
-        <span className="loading loading-spinner text-primary loading-lg"></span>
-      </div>
-
+      <LoadingScreen id='loading' heightPage={heightPage} />
       <div className='px-20 py-10'>
 
         <div className='flex justify-between items-center'>

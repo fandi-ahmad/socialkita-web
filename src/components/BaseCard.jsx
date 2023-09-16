@@ -27,7 +27,7 @@ export const BaseCard = (props) => {
             </label>
             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <ul><label htmlFor='my_modal_62' onClick={props.onClickEdit} className={classMenuDropdown}>Edit</label></ul>
-              <ul><label htmlFor="" className={classMenuDropdown}>Hapus</label></ul>
+              <ul><label htmlFor="" onClick={props.onClickDelete} className={classMenuDropdown}>Hapus</label></ul>
               <ul><label htmlFor="" className={classMenuDropdown}>Arsipkan</label></ul>
             </ul>
           </div>

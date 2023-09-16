@@ -35,7 +35,7 @@ export const UpdateProject = (data) => {
 }
 
 export const DeleteProject = (uuid) => {
-  return axios.get(`${apiUser}/delete/${uuid}`, {
+  return axios.delete(`${apiProject}/delete/${uuid}`, {
     withCredentials: true,
   })
   .then(response => response.data)
