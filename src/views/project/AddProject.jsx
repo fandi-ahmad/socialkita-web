@@ -115,7 +115,7 @@ const AddProject = () => {
     } else {
       return (
         <>
-          <img src={projectImageUrl} alt="" className='rounded-md hover:brightness-90 cursor-pointer duration-200 w-full' onClick={() => getId('inputFile').click()} />
+          <img src={projectImageUrl} alt="" className='rounded-md hover:brightness-90 h-60 object-cover cursor-pointer duration-200 w-full' onClick={() => getId('inputFile').click()} />
           <input type="file" id='inputFile' className='hidden' onChange={handleInputFile} />
         </>
       )

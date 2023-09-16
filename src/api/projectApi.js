@@ -30,6 +30,18 @@ export const CreateProject = (data) => {
   return callApi('post', `${apiProject}/create`, data)
 }
 
+export const UpdateProject = (data) => {
+  return callApi('put', `${apiProject}/update`, data)
+}
+
+export const DeleteProject = (uuid) => {
+  return axios.get(`${apiUser}/delete/${uuid}`, {
+    withCredentials: true,
+  })
+  .then(response => response.data)
+  .catch(error => error.response)
+}
+
 export const GetProjectListByUser = (uuid) => {
   return callApiGet(`${apiProject}/${uuid}`)
 }

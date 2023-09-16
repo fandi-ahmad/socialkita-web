@@ -5,6 +5,7 @@ const urlServer = process.env.KARYAKU_SERVER
 
 export const BaseCard = (props) => {
   const exampleImage = 'https://img.freepik.com/free-psd/music-magazine-landing-page-theme_23-2148824020.jpg?w=826&t=st=1694677888~exp=1694678488~hmac=ea42a6e7f43fe3cbc829bfa7ad386d1ecd37eb0b7e037e539c25e1b446d68290'
+  const classMenuDropdown = 'flex w-full py-2 px-4 cursor-pointer hover:bg-base-300 rounded-md'
 
   const showHideButton = (propsSelected, icon, text) => {
     if (propsSelected) {
@@ -25,9 +26,9 @@ export const BaseCard = (props) => {
               <i className="fa-solid fa-ellipsis-vertical fa-xl"></i>
             </label>
             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Edit</a></li>
-              <li><a>Hapus</a></li>
-              <li><a>Arsipkan</a></li>
+              <ul><label htmlFor='my_modal_62' onClick={props.onClickEdit} className={classMenuDropdown}>Edit</label></ul>
+              <ul><label htmlFor="" className={classMenuDropdown}>Hapus</label></ul>
+              <ul><label htmlFor="" className={classMenuDropdown}>Arsipkan</label></ul>
             </ul>
           </div>
         </div>

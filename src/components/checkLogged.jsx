@@ -35,6 +35,10 @@ export const CheckLogged = () => {
       }
     };
 
+    if (location.pathname !== '/profile/edit' && username === '') {
+      navigate('/profile/edit')
+    }
+
     checkLoginStatus();
   }, [isLoggedIn, username, profilePicture])
 
