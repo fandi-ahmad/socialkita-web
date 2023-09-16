@@ -4,7 +4,7 @@ import { MiniNavbar, Navbar } from '../../components/Navbar'
 import { BaseCard } from '../../components/BaseCard'
 import { GetProjectListByUser, UpdateProject, DeleteProject } from '../../api/projectApi'
 import { useGlobalState } from '../../state/state'
-import { SimpleInput } from '../../components/baseInput'
+import { InputText, InputTextArea, SimpleInput } from '../../components/baseInput'
 import { BaseButton } from '../../components/BaseButton'
 import { getId, formatDate } from '../../function/baseFunction'
 import { BaseAlert } from '../../components/BaseAlert'
@@ -19,6 +19,7 @@ const UserProjectList = () => {
   const [alertMsg, setAlertMsg] = useState('')
   const [alertType, setAlertType] = useState('')
   const [heightPage, setHeightPage] = useState(0)
+  const [theme, setTheme] = useGlobalState('theme')
 
 
   // for edit project
@@ -208,11 +209,22 @@ const UserProjectList = () => {
               <img className='rounded-md w-96 h-60 object-cover me-4 cursor-pointer hover:brightness-90 duration-200' src={projectImageUrl} alt="" onClick={() => getId('inputFile').click()} />
               <input type="file" id='inputFile' onChange={handleInputFile} className='hidden' />
             </div>
-            <div className='w-96'>
-              <SimpleInput placeholder='judul project' value={title} onChange={handleInput} name='title' className='font-bold mb-4' />
-              <textarea placeholder="deskripsi singkat project" value={description} onChange={handleInput} name='description' className="mb-4 textarea textarea-bordered textarea-lg w-full h-56 no-resize"></textarea>
-              <SimpleInput placeholder='demo link' value={demoLink} onChange={handleInput} name='demoLink' className='mb-4' />
-              <SimpleInput placeholder='source code' value={sourceCode} onChange={handleInput} name='sourceCode' className='mb-4' />
+            <div className='w-96 pr-2'>
+              <InputText placeholder='Tambahkan judul' className='mb-4 font-bold text-xl' value={title} name='title' onChange={handleInput} theme={theme} />
+              <InputTextArea placeholder='Tambahkan deskripsi singkat' className='mb-4' name='description' value={description} onChange={handleInput} theme={theme} />
+              
+              <div className='flex items-center mb-4'>
+                <i className="fa-solid fa-play mr-4"></i>
+                <InputText className='w-full' placeholder='demo link' value={demoLink} name='demoLink' onChange={handleInput} theme={theme} />
+              </div>
+              <div className="flex items-center mb-4">
+                <i className="fa-brands fa-github mr-4"></i>
+                <InputText className='w-full' placeholder='source code' value={sourceCode} name='sourceCode' onChange={handleInput} theme={theme} />
+              </div>
+              {/* <SimpleInput placeholder='judul project' value={title} onChange={handleInput} name='title' className='font-bold mb-4' />
+              <textarea placeholder="deskripsi singkat project" value={description} onChange={handleInput} name='description' className="mb-4 textarea textarea-bordered textarea-lg w-full h-56 no-resize"></textarea> */}
+              {/* <SimpleInput placeholder='demo link' value={demoLink} onChange={handleInput} name='demoLink' className='mb-4' /> */}
+              {/* <SimpleInput placeholder='source code' value={sourceCode} onChange={handleInput} name='sourceCode' className='mb-4' /> */}
             </div>
           </div>
           <div className='flex justify-end mt-4'>

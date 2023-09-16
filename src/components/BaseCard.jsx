@@ -10,7 +10,7 @@ export const BaseCard = (props) => {
   const showHideButton = (propsSelected, icon, text) => {
     if (propsSelected) {
       return (
-        <a target='_blank' href={propsSelected}>
+        <a target='_blank' href={'https://'+propsSelected}>
           <BaseButton icon={icon} text={text} className='me-4' />
         </a>
       )

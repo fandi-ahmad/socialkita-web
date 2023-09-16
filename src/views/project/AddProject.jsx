@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CheckLogged } from '../../components/checkLogged'
-import { SimpleInput } from '../../components/baseInput'
+import { InputText, InputTextArea, SimpleInput } from '../../components/baseInput'
 import { useNavigate } from 'react-router-dom'
 import { CreateProject } from '../../api/projectApi'
 import { BaseButton } from '../../components/BaseButton'
@@ -14,6 +14,8 @@ const AddProject = () => {
   const navigate = useNavigate()
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [pagePrevious, setPagePrevious] = useGlobalState('pagePrevious')
+  const [theme, setTheme] = useGlobalState('theme')
+
   const [alertClass, setAlertClass] = useGlobalState('alertClass')
   const [projectImage, setProjectImage] = useState(null)
   const [projectImageUrl, setProjectImageUrl] = useState('')
@@ -146,15 +148,21 @@ const AddProject = () => {
 
           <div className='flex-grow'>
             <form>
-              <SimpleInput label='judul project*' placeholder='judul project' className='mb-4' value={title} name='title' onChange={handleInput} />
-              <label className="w-full text-start capitalize">deskripsi singkat project*</label>
-              <textarea placeholder="deskripsi singkat project" name='description' value={description} onChange={handleInput} className="mb-4 textarea textarea-bordered textarea-lg w-full h-64 no-resize"></textarea>
-              <div className='flex justify-between'>
-                <div className='flex-grow mr-8'>
-                  <SimpleInput name='demoLink' value={demoLink} onChange={handleInput} label={<><i className="fa-solid fa-play mr-1"></i> demo link</> } placeholder='demo link' className='mb-4' />
+              <InputText placeholder='Tambahkan judul' className='mb-8 font-bold text-xl' value={title} name='title' onChange={handleInput} theme={theme} />
+              <InputTextArea placeholder='Tambahkan deskripsi singkat' className='mb-8' name='description' value={description} onChange={handleInput} theme={theme} />
+
+              <div className='flex justify-between mb-8'>
+                <div className='flex-grow mr-12'>
+                  <div className='flex items-center'>
+                    <i className="fa-solid fa-play mr-4"></i>
+                    <InputText className='w-full' placeholder='demo link' value={demoLink} name='demoLink' onChange={handleInput} theme={theme} />
+                  </div>
                 </div>
                 <div className='flex-grow'>
-                  <SimpleInput name='sourceCode' value={sourceCode} onChange={handleInput} label={<><i className="fa-brands fa-github mr-1"></i> source code</>} placeholder='source code' className='mb-4' />
+                  <div className="flex items-center">
+                    <i className="fa-brands fa-github mr-4"></i>
+                    <InputText className='w-full' placeholder='source code' value={sourceCode} name='sourceCode' onChange={handleInput} theme={theme} />
+                  </div>
                 </div>
               </div>
 

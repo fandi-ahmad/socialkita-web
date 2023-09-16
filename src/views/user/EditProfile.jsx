@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, MiniNavbar } from '../../components/Navbar'
-import { SimpleInput } from '../../components/baseInput'
+import { InputText, InputTextArea, SimpleInput } from '../../components/baseInput'
 import { ProfileCard, ProfileCardInput } from '../../components/ProfileCard'
 import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
 import { CheckLogged } from '../../components/checkLogged'
@@ -144,19 +144,19 @@ const EditProfile = () => {
         </div>
 
         <ProfileCardInput  id='profileEdit'
-          username={<SimpleInput placeholder='username' name='username' value={newUsername} onChange={handleInput} id='username' className={inputUsernameClass} />}
-          fullname={<SimpleInput placeholder='nama lengkap' name='fullname' value={fullname} onChange={handleInput} className='max-w-xs' />}
-          category={<SimpleInput placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
+          username={<InputText placeholder='username' name='username' value={newUsername} onChange={handleInput} id='username' className={inputUsernameClass} />}
+          fullname={<InputText placeholder='nama lengkap' name='fullname' value={fullname} onChange={handleInput} className='max-w-xs' />}
+          category={<InputText placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
           button={
             <div>
               <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={() => navigate('/profile')}>batal</button>
               <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
             </div>
           }
-          address={<SimpleInput placeholder='alamat' name='address' value={address} onChange={handleInput} />}
-          work={<SimpleInput placeholder='tempat kerja' name='work' value={work} onChange={handleInput} />}
-          link={<SimpleInput placeholder='link' name='link' value={link} onChange={handleInput} />}
-          biodata={<textarea placeholder="Bio" name='biodata' value={biodata} onChange={handleInput} className="textarea textarea-bordered textarea-lg w-full h-64 no-resize"></textarea>}
+          address={<InputText placeholder='alamat' name='address' value={address} onChange={handleInput} />}
+          work={<InputText placeholder='tempat kerja' name='work' value={work} onChange={handleInput} />}
+          link={<InputText placeholder='link' name='link' value={link} onChange={handleInput} />}
+          biodata={<InputTextArea placeholder='Tambahkan biodata' name='biodata' value={biodata} onChange={handleInput} height='h-60 border-b-0 focus:border-0' />}
         />
 
       </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { GetUserLogin } from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
 import { useGlobalState } from '../state/state'
+import { themeOfPage } from '../function/baseFunction'
 const urlServer = process.env.KARYAKU_SERVER
 
 export const CheckLogged = () => {
@@ -10,10 +11,12 @@ export const CheckLogged = () => {
   const [username, setUsername] = useGlobalState('username')
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [profilePicture, setProfilePicture] = useGlobalState('profile_picture')
+  const [theme, setTheme] = useGlobalState('theme')
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
+        // setTheme(themeOfPage('dark'))
         const data = await GetUserLogin()
         setUuidUser(data.data.uuid)
         setUsername(data.data.username)

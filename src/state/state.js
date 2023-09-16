@@ -7,6 +7,7 @@ const initialState = {
   alertClass: 'hidden',
   profile_picture: '',
   pagePrevious: '/',
+  theme: 'light',
 };
 const { useGlobalState } = createGlobalState(initialState);
 
