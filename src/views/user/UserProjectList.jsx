@@ -6,9 +6,9 @@ import { GetProjectListByUser, UpdateProject, DeleteProject } from '../../api/pr
 import { useGlobalState } from '../../state/state'
 import { SimpleInput } from '../../components/baseInput'
 import { BaseButton } from '../../components/BaseButton'
-import { getId } from '../../function/baseFunction'
+import { getId, formatDate } from '../../function/baseFunction'
 import { BaseAlert } from '../../components/BaseAlert'
-import { BaseLoading, LoadingScreen } from '../../components/BaseLoading'
+import { BaseLoading, LoadingData, LoadingScreen } from '../../components/BaseLoading'
 const urlServer = process.env.KARYAKU_SERVER
 
 
@@ -34,10 +34,10 @@ const UserProjectList = () => {
   const getAllData = async () => {
     try {
       if (uuidUser) {
-        getId('loading').classList.remove('hidden')
+        getId('loadingData').classList.remove('hidden')
         const data = await GetProjectListByUser(uuidUser)
         setProjectList([...data.data]);
-        getId('loading').classList.add('hidden')
+        getId('loadingData').classList.add('hidden')
       }
     } catch (error) {
       console.log(error, '<-- error get data');
@@ -158,16 +158,14 @@ const UserProjectList = () => {
       <LoadingScreen id='loadingScreen' />
       <BaseAlert type={alertType} text={alertMsg} className='hidden' id='alertMessageList' />
       <div className='px-20 py-10'>
-        <div className='w-full flex justify-center' id='loading'>
-          <span className="loading loading-spinner text-primary loading-lg"></span>
-        </div>
+        <LoadingData/>
         <div className='grid grid-cols-3 gap-4'>
           {projectList.map((project) => (
             <div className='flex flex-grow' key={project.uuid}>
               <BaseCard
                 title={project.title}
                 text={project.description}
-                date={project.createdAt}
+                date={formatDate(project.createdAt)}
                 projectImage={urlServer+'/'+project.project_image}
                 profilePicture={profilePicture}
                 demoLink={project.demo_link}

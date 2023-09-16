@@ -44,10 +44,15 @@ export const Navbar = (props) => {
             </label>
             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
               <li>
-                <a className="justify-between" onClick={() => navigate('/profile')}>Profile</a>
+                <a className='py-2' onClick={() => navigate('/profile')}><i className="fa-solid fa-user"></i>Profile</a>
               </li>
-              <li><a>Settings</a></li>
-              <li onClick={()=>document.getElementById('my_modal_1').showModal()}><a>Logout</a></li>
+              <li>
+                <a className='py-2' onClick={() => navigate('/profile/project')}><i className="fa-solid fa-briefcase"></i>Project</a>
+              </li>
+              <li><a className='py-2'><i className="fa-solid fa-gear"></i>Settings</a></li>
+              <li>
+                <a className='py-2' onClick={()=>document.getElementById('my_modal_1').showModal()}><i className="fa-solid fa-right-from-bracket"></i>Logout</a>
+              </li>
             </ul>
           </div>
         </div>
