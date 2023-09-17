@@ -7,6 +7,8 @@ const initialState = {
   alertClass: 'hidden',
   profile_picture: '',
   pagePrevious: '/',
+  theme: 'light',
+  isLoggedIn: false,
 };
 const { useGlobalState } = createGlobalState(initialState);
 

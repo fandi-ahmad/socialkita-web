@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, MiniNavbar } from '../../components/Navbar'
+import { Navbar, MiniNavbar, BottomNavbar } from '../../components/Navbar'
 import { SimpleInput } from '../../components/baseInput'
 import { ProfileCard } from '../../components/ProfileCard'
 import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
@@ -50,36 +50,44 @@ const Profile = () => {
   }, [uuidUser])
 
   return (
-    <>
+    <div className='h-screen overflow-y-auto'>
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
-      <div className={`absolute top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertSuccessEdit}`} id='succesEdit'>
+      <div className={`fixed top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertSuccessEdit}`} id='succesEdit'>
         <div className={`alert alert-success w-fit`} >
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <span>Data berhasil diperbarui</span>
         </div>
       </div>
-      <div className='px-20 pt-10 flex flex-row'>
-        <div className="avatar cursor-pointer tooltip tooltip-bottom h-full" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
-          <div className="w-72 h-72 rounded-full">
-            <img src={profilePicture || profilePictureEmpty} className='w-full' />
+
+      <div>
+        <div className='px-10 pt-10 flex flex-col md:flex-row mx-auto' style={{maxWidth: '1380px'}}>
+          <div className="avatar cursor-pointer tooltip tooltip-bottom h-full flex justify-center" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
+            <div className="w-72 h-72 rounded-full">
+              <img src={profilePicture || profilePictureEmpty} className='w-full' />
+            </div>
           </div>
+
+          <ProfileCard className='pb-64' id='profileCard'
+            username={username}
+            fullname={fullname}
+            category={category}
+            button={
+              <div className='flex justify-end mb-4'>
+                <button className="btn btn-sm btn-primary capitalize" onClick={() => navigate('/profile/edit')}>Edit profile</button>
+              </div>
+            }
+            address={address}
+            work={work}
+            link={link}
+            biodata={biodata}
+          />
+
         </div>
-
-        <ProfileCard className='' id='profileCard'
-          username={username}
-          fullname={fullname}
-          category={category}
-          button={<button className="btn btn-sm btn-primary capitalize" onClick={() => navigate('/profile/edit')}>Edit profile</button>}
-          address={address}
-          work={work}
-          link={link}
-          biodata={biodata}
-        />
-
       </div>
-    </>
+      <BottomNavbar/>
+    </div>
   )
 }
 

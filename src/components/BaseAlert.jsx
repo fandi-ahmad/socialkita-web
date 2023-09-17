@@ -30,7 +30,7 @@ export const BaseAlert = (props) => {
   
 
   return (
-    <div className={`fixed top-5 w-full px-20 flex justify-center transition-all duration-200 ${props.className}`} id={props.id}>
+    <div className={`fixed z-50 top-5 w-full px-20 flex justify-center transition-all duration-200 ${props.className}`} id={props.id}>
       <div className={`alert ${'alert-'+props.type} w-fit`} >
         {alertType()}
         <span>{props.text}</span>

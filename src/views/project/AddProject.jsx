@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import { CheckLogged } from '../../components/checkLogged'
-import { SimpleInput } from '../../components/baseInput'
+import { InputText, InputTextArea, SimpleInput } from '../../components/baseInput'
 import { useNavigate } from 'react-router-dom'
 import { CreateProject } from '../../api/projectApi'
 import { BaseButton } from '../../components/BaseButton'
 import { useGlobalState } from '../../state/state'
 import { getId } from '../../function/baseFunction'
 import { BaseAlert } from '../../components/BaseAlert'
+import { LoadingScreen } from '../../components/BaseLoading'
 
 
 const AddProject = () => {
   const navigate = useNavigate()
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [pagePrevious, setPagePrevious] = useGlobalState('pagePrevious')
+  const [theme, setTheme] = useGlobalState('theme')
+
   const [alertClass, setAlertClass] = useGlobalState('alertClass')
   const [projectImage, setProjectImage] = useState(null)
   const [projectImageUrl, setProjectImageUrl] = useState('')
@@ -115,7 +118,7 @@ const AddProject = () => {
     } else {
       return (
         <>
-          <img src={projectImageUrl} alt="" className='rounded-md hover:brightness-90 cursor-pointer duration-200 w-full' onClick={() => getId('inputFile').click()} />
+          <img src={projectImageUrl} alt="" className='rounded-md hover:brightness-90 h-60 object-cover cursor-pointer duration-200 w-full' onClick={() => getId('inputFile').click()} />
           <input type="file" id='inputFile' className='hidden' onChange={handleInputFile} />
         </>
       )
@@ -126,51 +129,52 @@ const AddProject = () => {
     <>
       <CheckLogged />
       <BaseAlert type='error' text={alertMsg} className='hidden' id='errorAlert' />
-      <div id='loading' className='hidden absolute z-30 w-full bg-gray-800 bg-opacity-50 flex justify-center items-center' style={{ height: heightPage }}>
-        <span className="loading loading-spinner text-primary loading-lg"></span>
-      </div>
-
-      <div className='px-20 py-10'>
-
-        <div className='flex justify-between items-center'>
-          <h1 className='font-bold text-2xl'>Project Baru</h1>
-          <div className='cursor-pointer' title='close' onClick={() => navigate(pagePrevious)}>
-            <i className="fa-solid fa-xmark fa-2xl"></i>
-          </div>
-        </div>
-
-        <hr className='my-8' />
-
-        <div className='flex flex-row w-100'>
-          <div className='w-96 mr-20'>
-            {showHideProjectImage()}
+      <LoadingScreen id='loading' heightPage={heightPage} />
+      <div>
+        <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
+          <div className='flex justify-between items-center'>
+            <h1 className='font-bold text-2xl'>Project Baru</h1>
+            <div className='cursor-pointer' title='close' onClick={() => navigate('/profile')}>
+              <i className="fa-solid fa-xmark fa-2xl"></i>
+            </div>
           </div>
 
-          <div className='flex-grow'>
-            <form>
-              <SimpleInput label='judul project*' placeholder='judul project' className='mb-4' value={title} name='title' onChange={handleInput} />
-              <label className="w-full text-start capitalize">deskripsi singkat project*</label>
-              <textarea placeholder="deskripsi singkat project" name='description' value={description} onChange={handleInput} className="mb-4 textarea textarea-bordered textarea-lg w-full h-64 no-resize"></textarea>
-              <div className='flex justify-between'>
-                <div className='flex-grow mr-8'>
-                  <SimpleInput name='demoLink' value={demoLink} onChange={handleInput} label={<><i className="fa-solid fa-play mr-1"></i> demo link</> } placeholder='demo link' className='mb-4' />
-                </div>
-                <div className='flex-grow'>
-                  <SimpleInput name='sourceCode' value={sourceCode} onChange={handleInput} label={<><i className="fa-brands fa-github mr-1"></i> source code</>} placeholder='source code' className='mb-4' />
-                </div>
-              </div>
+          <hr className='my-8' />
 
-            </form>
-
-            <div className='mt-5 flex justify-end'>
-              <BaseButton className='btn-primary' text='buat sekarang' onClick={btnCreateProject}  />
+          <div className='flex flex-col md:flex-row w-100'>
+            <div className='w-full md:w-96 mr-20 mb-8'>
+              {showHideProjectImage()}
             </div>
 
+            <div className='flex-grow'>
+              <form>
+                <InputText placeholder='Tambahkan judul' className='mb-8 font-bold text-xl' value={title} name='title' onChange={handleInput} theme={theme} />
+                <InputTextArea placeholder='Tambahkan deskripsi singkat' className='mb-8' name='description' value={description} onChange={handleInput} theme={theme} />
+
+                <div className='flex justify-between flex-col sm:flex-row mb-8'>
+                  <div className='flex-grow mb-4 sm:mr-12'>
+                    <div className='flex items-center'>
+                      <i className="fa-solid fa-play mr-4"></i>
+                      <InputText className='w-full' placeholder='demo link' value={demoLink} name='demoLink' onChange={handleInput} theme={theme} />
+                    </div>
+                  </div>
+                  <div className='flex-grow'>
+                    <div className="flex items-center">
+                      <i className="fa-brands fa-github mr-4"></i>
+                      <InputText className='w-full' placeholder='source code' value={sourceCode} name='sourceCode' onChange={handleInput} theme={theme} />
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+
+              <div className='mt-5 flex justify-center md:justify-end'>
+                <BaseButton className='btn-primary' text='buat sekarang' onClick={btnCreateProject}  />
+              </div>
+
+            </div>
           </div>
         </div>
-
-
-
       </div>
     </>
   )
