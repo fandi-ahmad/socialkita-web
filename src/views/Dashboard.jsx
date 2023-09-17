@@ -57,7 +57,7 @@ const Dashboard = () => {
       <Navbar/>
       <BaseAlert type='success' text='projectmu berhasil ditambahkan' className={alertClass} />
       <div className='h-screen overflow-y-auto'>
-        <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
+        <div className='px-10 py-10 mx-auto pb-48' style={{maxWidth: '1380px'}}>
           <LoadingData/>
           <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-4'>
             {projectList.map((project) => (

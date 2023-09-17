@@ -11,7 +11,7 @@ export const BaseCard = (props) => {
     if (propsSelected) {
       return (
         <a target='_blank' href={'https://'+propsSelected}>
-          <BaseButton icon={icon} text={text} className='me-4' />
+          <BaseButton icon={icon} text={text} className='me-4 btn-sm sm:btn-md' />
         </a>
       )
     }
@@ -67,10 +67,10 @@ export const BaseCard = (props) => {
             <span className="badge badge-ghost p-3 me-2">Badge</span>
           </div>
         </span>
-        <div className="card-actions flex flex-grow justify-between items-end mt-5">
-          <div>
+        <div className="card-actions flex flex-grow justify-between items-end mt-5 flex-row md:flex-row">
+          <div className='flex flex-col sm:flex-row gap-2'>
             {showHideButton(props.demoLink, 'fa-solid fa-play', 'demo')}
-            {showHideButton(props.sourceCode, 'fa-brands fa-github', 'source code')}
+            {showHideButton(props.sourceCode, 'fa-brands fa-github', 'source')}
           </div>
           {showHideMenu(props.showMenu)}
         </div>
