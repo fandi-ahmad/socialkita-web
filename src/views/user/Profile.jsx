@@ -69,18 +69,12 @@ const Profile = () => {
             </div>
           </div>
 
-          <ProfileCard className='' id='profileCard'
+          <ProfileCard className='pb-64' id='profileCard'
             username={username}
             fullname={fullname}
             category={category}
             button={
               <div className='flex justify-end mb-4'>
-                {/* <div className="dropdown">
-                  <label tabIndex={0} className='mr-4'><i className="fa-solid fa-gear fa-xl"></i></label>
-                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a>Item 1</a></li>
-                  </ul>
-                </div> */}
                 <button className="btn btn-sm btn-primary capitalize" onClick={() => navigate('/profile/edit')}>Edit profile</button>
               </div>
             }
