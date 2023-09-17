@@ -134,7 +134,7 @@ const AddProject = () => {
         <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
           <div className='flex justify-between items-center'>
             <h1 className='font-bold text-2xl'>Project Baru</h1>
-            <div className='cursor-pointer' title='close' onClick={() => navigate(pagePrevious)}>
+            <div className='cursor-pointer' title='close' onClick={() => navigate('/profile')}>
               <i className="fa-solid fa-xmark fa-2xl"></i>
             </div>
           </div>

@@ -21,7 +21,6 @@ const UserProjectList = () => {
   const [heightPage, setHeightPage] = useState(0)
   const [theme, setTheme] = useGlobalState('theme')
 
-
   // for edit project
   const [uuid, setUuid] = useState('')
   const [title, setTitle] = useState('')

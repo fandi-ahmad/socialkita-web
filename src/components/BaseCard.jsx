@@ -28,14 +28,12 @@ export const BaseCard = (props) => {
             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <ul><label htmlFor='my_modal_62' onClick={props.onClickEdit} className={classMenuDropdown}>Edit</label></ul>
               <ul><label htmlFor="" onClick={props.onClickDelete} className={classMenuDropdown}>Hapus</label></ul>
-              <ul><label htmlFor="" className={classMenuDropdown}>Arsipkan</label></ul>
             </ul>
           </div>
         </div>
       )
     }
   }
-
 
 
   return (
@@ -59,13 +57,10 @@ export const BaseCard = (props) => {
         </div>
         <div className='text-gray-500'>
           <i className="fa-regular fa-calendar"></i>
-          <small className='ms-2'>{props.date || 'september 2023'}</small>
+          <small className='ms-2'>{props.date}</small>
         </div>
         <span>
-          {props.text || 'If a dog chews shoes whose shoes does he choose?'}
-          <div className='flex flex-row mt-2'>
-            <span className="badge badge-ghost p-3 me-2">Badge</span>
-          </div>
+          {props.text}
         </span>
         <div className="card-actions flex flex-grow justify-between items-end mt-5 flex-row md:flex-row">
           <div className='flex flex-col sm:flex-row gap-2'>

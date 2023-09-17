@@ -8,6 +8,7 @@ const initialState = {
   profile_picture: '',
   pagePrevious: '/',
   theme: 'light',
+  isLoggedIn: false,
 };
 const { useGlobalState } = createGlobalState(initialState);
 

@@ -68,13 +68,13 @@ const Login = () => {
       <div className="card w-96 bg-base-100 shadow-xl">
        
         <div className="card-body items-center text-center">
-          <h2 className="card-title">Login</h2>
+          <h2 className="card-title">Masuk</h2>
           <SimpleInput label='email' name='email' onChange={handleInput} value={email} type='email' className={errorInput} />
           <SimpleInput label='password' name='password' onChange={handleInput} value={password} type='password' className={errorInput} />
           <small className="text-red-500">{errorText}</small>
-          <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/register')}>Don't have an account? please register</small>
+          <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/register')}>Belum punya akun? silahkan daftar</small>
           <div className="card-actions mt-5">
-            <button className="btn btn-primary" onClick={login}>Login</button>
+            <button className="btn btn-primary capitalize" onClick={login}>Masuk</button>
           </div>
         </div>
       </div>

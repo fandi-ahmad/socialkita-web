@@ -98,13 +98,13 @@ const Register = () => {
       <div className="card w-96 bg-base-100 shadow-xl">
        
         <div className="card-body items-center text-center">
-          <h2 className="card-title">Register</h2>
+          <h2 className="card-title">Daftar</h2>
           <SimpleInput label='email' name='email' onChange={handleInput} value={email} type='email' className={errorInputEmail} />
           <SimpleInput label='password' name='password' onChange={handleInput} value={password} type='password' className={errorInputPassword} />
           <small className="text-red-500">{errorText}</small>
-          <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/login')}>Already account? please login</small>
+          <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/login')}>Sudah punya akun? silahkan masuk</small>
           <div className="card-actions mt-5">
-            <button className="btn btn-primary" onClick={register}>register</button>
+            <button className="btn btn-primary capitalize" onClick={register}>Daftar</button>
           </div>
         </div>
       </div>

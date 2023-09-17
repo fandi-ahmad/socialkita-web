@@ -7,7 +7,7 @@ const urlServer = process.env.KARYAKU_SERVER
 
 export const CheckLogged = () => {
   const navigate = useNavigate()
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useGlobalState('isLoggedIn')
   const [username, setUsername] = useGlobalState('username')
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [profilePicture, setProfilePicture] = useGlobalState('profile_picture')
@@ -26,9 +26,9 @@ export const CheckLogged = () => {
         : setProfilePicture(`${urlServer}/${data.data.profile_picture}`)
 
 
-        if (data.status === 401) {
+        if (data.status === 401 && location.pathname !== '/') {
           setIsLoggedIn(false);
-          navigate('/login')
+          navigate('/')
         }
         if (data.status === 200) {
           setIsLoggedIn(true);
