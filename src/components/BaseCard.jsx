@@ -39,8 +39,8 @@ export const BaseCard = (props) => {
 
 
   return (
-    <div className="card bg-base-100 shadow-xl mx-auto w-80 sm:w-96 lg:mx-0 md:w-72 lg:w-96" key={props.key}>
-      <figure className='h-60'>
+    <div className="card bg-base-100 shadow-xl mx-auto w-full xsm:w-72 sm:w-96 lg:mx-0 md:w-80 lg:w-96" key={props.key}>
+      <figure className='h-32 sm:h-48 md:h-60'>
         <img src={!props.projectImage || props.projectImage === urlServer+'/' ? exampleImage : props.projectImage} 
           className='object-cover object-center w-full h-full' />
       </figure>

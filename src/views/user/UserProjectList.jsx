@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CheckLogged } from '../../components/checkLogged'
-import { MiniNavbar, Navbar } from '../../components/Navbar'
+import { BottomNavbar, MiniNavbar, Navbar } from '../../components/Navbar'
 import { BaseCard } from '../../components/BaseCard'
 import { GetProjectListByUser, UpdateProject, DeleteProject } from '../../api/projectApi'
 import { useGlobalState } from '../../state/state'
@@ -152,14 +152,14 @@ const UserProjectList = () => {
 
 
   return (
-    <>
+    <div className='h-screen overflow-hidden'>
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
       <LoadingScreen id='loadingScreen' />
       <BaseAlert type={alertType} text={alertMsg} className='hidden' id='alertMessageList' />
-      <div>
-        <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
+      <div className='h-screen overflow-y-auto'>
+        <div className='px-10 py-10 mx-auto pb-48' style={{maxWidth: '1380px'}}>
           <LoadingData/>
           <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-4'>
             {projectList.map((project) => (
@@ -203,15 +203,15 @@ const UserProjectList = () => {
           <h3 className="font-bold text-lg mb-4">Edit Project</h3>
           <div className='modal-action'>
             <label htmlFor="my_modal_62" id='closeModal' className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>
-              <i className="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark fa-lg"></i>
             </label>
           </div>
-          <div className='flex justify-between overflow-y-auto' style={{maxHeight: '350px'}}>
-            <div>
-              <img className='rounded-md w-96 h-60 object-cover me-4 cursor-pointer hover:brightness-90 duration-200' src={projectImageUrl} alt="" onClick={() => getId('inputFile').click()} />
+          <div className='flex overflow-y-auto flex-col lg:flex-row'>
+            <div className=''>
+              <img className='rounded-md w-full lg:w-80 lg:mr-4 h-60 object-cover cursor-pointer hover:brightness-90 duration-200' src={projectImageUrl} alt="" onClick={() => getId('inputFile').click()} />
               <input type="file" id='inputFile' onChange={handleInputFile} className='hidden' />
             </div>
-            <div className='w-96 pr-2'>
+            <div className='w-full lg:w-96 mt-4'>
               <InputText placeholder='Tambahkan judul' className='mb-4 font-bold text-xl' value={title} name='title' onChange={handleInput} theme={theme} />
               <InputTextArea placeholder='Tambahkan deskripsi singkat' className='mb-4' name='description' value={description} onChange={handleInput} theme={theme} />
               
@@ -225,12 +225,14 @@ const UserProjectList = () => {
               </div>
             </div>
           </div>
-          <div className='flex justify-end mt-4'>
+          <div className='flex justify-center lg:justify-end mt-4'>
             <BaseButton text='selesai' onClick={updateProject} />
           </div>
         </div>
       </div>
-    </>
+      <BottomNavbar/>
+
+    </div>
   )
 }
 

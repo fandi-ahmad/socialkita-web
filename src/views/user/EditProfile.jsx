@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, MiniNavbar } from '../../components/Navbar'
+import { Navbar, MiniNavbar, BottomNavbar } from '../../components/Navbar'
 import { InputText, InputTextArea, SimpleInput } from '../../components/baseInput'
 import { ProfileCard, ProfileCardInput } from '../../components/ProfileCard'
 import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
@@ -125,7 +125,7 @@ const EditProfile = () => {
   }, [uuidUser])
 
   return (
-    <>
+    <div className='h-screen overflow-y-auto'>
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
@@ -150,7 +150,7 @@ const EditProfile = () => {
             fullname={<InputText placeholder='nama lengkap' name='fullname' value={fullname} onChange={handleInput} className='max-w-xs' />}
             category={<InputText placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
             button={
-              <div>
+              <div className='flex justify-end mb-4'>
                 <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={() => navigate('/profile')}>batal</button>
                 <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
               </div>
@@ -163,7 +163,8 @@ const EditProfile = () => {
 
         </div>
       </div>
-    </>
+      <BottomNavbar/>
+    </div>
   )
 }
 

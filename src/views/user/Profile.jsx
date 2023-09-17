@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, MiniNavbar } from '../../components/Navbar'
+import { Navbar, MiniNavbar, BottomNavbar } from '../../components/Navbar'
 import { SimpleInput } from '../../components/baseInput'
 import { ProfileCard } from '../../components/ProfileCard'
 import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
@@ -50,7 +50,7 @@ const Profile = () => {
   }, [uuidUser])
 
   return (
-    <>
+    <div className='h-screen overflow-y-auto'>
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
@@ -73,7 +73,17 @@ const Profile = () => {
             username={username}
             fullname={fullname}
             category={category}
-            button={<button className="btn btn-sm btn-primary capitalize" onClick={() => navigate('/profile/edit')}>Edit profile</button>}
+            button={
+              <div className='flex justify-end mb-4'>
+                {/* <div className="dropdown">
+                  <label tabIndex={0} className='mr-4'><i className="fa-solid fa-gear fa-xl"></i></label>
+                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a>Item 1</a></li>
+                  </ul>
+                </div> */}
+                <button className="btn btn-sm btn-primary capitalize" onClick={() => navigate('/profile/edit')}>Edit profile</button>
+              </div>
+            }
             address={address}
             work={work}
             link={link}
@@ -82,7 +92,8 @@ const Profile = () => {
 
         </div>
       </div>
-    </>
+      <BottomNavbar/>
+    </div>
   )
 }
 

@@ -3,7 +3,7 @@ import { GetAllUser, UpdateUserProfile } from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
 import { CheckLogged } from '../components/checkLogged'
 import { useGlobalState } from '../state/state';
-import { Navbar } from '../components/Navbar';
+import { BottomNavbar, Navbar } from '../components/Navbar';
 import { BaseCard } from '../components/BaseCard';
 import { getId, formatDate } from '../function/baseFunction';
 import { BaseLoading, LoadingData, LoadingScreen } from '../components/BaseLoading';
@@ -52,11 +52,11 @@ const Dashboard = () => {
 
 
   return (
-    <>
+    <div className='h-screen overflow-hidden'>
       <CheckLogged />
       <Navbar/>
       <BaseAlert type='success' text='projectmu berhasil ditambahkan' className={alertClass} />
-      <div>
+      <div className='h-screen overflow-y-auto'>
         <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
           <LoadingData/>
           <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-4'>
@@ -71,7 +71,7 @@ const Dashboard = () => {
                   profilePicture={urlServer+'/'+project.profile_picture}
                   demoLink={project.demo_link}
                   sourceCode={project.source_code}
-                />
+                  />
               </div>
             ))}
 
@@ -79,7 +79,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </>
+      <BottomNavbar/>
+    </div>
   )
 }
 

@@ -141,8 +141,8 @@ const AddProject = () => {
 
           <hr className='my-8' />
 
-          <div className='flex flex-row w-100'>
-            <div className='w-96 mr-20'>
+          <div className='flex flex-col md:flex-row w-100'>
+            <div className='w-full md:w-96 mr-20 mb-8'>
               {showHideProjectImage()}
             </div>
 
@@ -151,8 +151,8 @@ const AddProject = () => {
                 <InputText placeholder='Tambahkan judul' className='mb-8 font-bold text-xl' value={title} name='title' onChange={handleInput} theme={theme} />
                 <InputTextArea placeholder='Tambahkan deskripsi singkat' className='mb-8' name='description' value={description} onChange={handleInput} theme={theme} />
 
-                <div className='flex justify-between mb-8'>
-                  <div className='flex-grow mr-12'>
+                <div className='flex justify-between flex-col sm:flex-row mb-8'>
+                  <div className='flex-grow mb-4 sm:mr-12'>
                     <div className='flex items-center'>
                       <i className="fa-solid fa-play mr-4"></i>
                       <InputText className='w-full' placeholder='demo link' value={demoLink} name='demoLink' onChange={handleInput} theme={theme} />
@@ -168,7 +168,7 @@ const AddProject = () => {
 
               </form>
 
-              <div className='mt-5 flex justify-end'>
+              <div className='mt-5 flex justify-center md:justify-end'>
                 <BaseButton className='btn-primary' text='buat sekarang' onClick={btnCreateProject}  />
               </div>
 
