@@ -145,7 +145,7 @@ export const BottomNavbar = () => {
             <i className="fa-solid fa-house fa-xl"></i>
           </button>
 
-          <button className='btn btn-sm xsm:btn-md sm:btn-lg'>
+          <button className='btn btn-sm xsm:btn-md sm:btn-lg tooltip tooltip-top normal-case' data-tip='Fitur ini segera hadir'>
             <i className="fa-solid fa-magnifying-glass fa-xl"></i>
           </button>
 
