@@ -126,7 +126,7 @@ const AddProject = () => {
   }
 
   return (
-    <>
+    <div className='h-screen'>
       <CheckLogged />
       <BaseAlert type='error' text={alertMsg} className='hidden' id='errorAlert' />
       <LoadingScreen id='loading' heightPage={heightPage} />
@@ -176,7 +176,7 @@ const AddProject = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

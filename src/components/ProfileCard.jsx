@@ -53,12 +53,12 @@ export const ProfileCardInput = (props) => {
   return (
     <div className={`w-full mt-8 md:mt-0 md:ms-16 ${props.className}`} id={props.id}>
       <div className='w-full pb-4 flex justify-center flex-col-reverse'>
-        <p className='text-2xl'>{props.username}</p>
+        <div className='text-2xl'>{props.username}</div>
         {props.button}
       </div>
       <div>
-        <p className='font-bold text-2xl capitalize'>{props.fullname}</p>
-        <p className='text-md capitalize'>{props.category}</p>
+        <div className='font-bold text-2xl capitalize'>{props.fullname}</div>
+        <div className='text-md capitalize'>{props.category}</div>
       </div>
       
       <div className='my-4'>
@@ -66,23 +66,23 @@ export const ProfileCardInput = (props) => {
           <div className='w-5'>
             <i className="fa-solid fa-location-dot"></i>
           </div>
-          <p className='ps-2 capitalize'>{props.address}</p>
+          <div className='ps-2 capitalize'>{props.address}</div>
         </div>
         <div className='flex flex-row items-center'>
           <div className='w-5'>
             <i className="fa-solid fa-building"></i>
           </div>
-          <p className='ps-2 capitalize'>{props.work}</p>
+          <div className='ps-2 capitalize'>{props.work}</div>
         </div>
         <div className='flex flex-row items-center cursor-pointer'>
           <div className="w-5">
             <i className="fa-solid fa-link"></i>
           </div>
-          <p className='ps-2'>{props.link}</p>
+          <div className='ps-2'>{props.link}</div>
         </div>
       </div>
       <hr />
-      <p className='my-4'>{props.biodata}</p>
+      <div className='my-4'>{props.biodata}</div>
     </div>
   )
 }

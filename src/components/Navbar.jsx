@@ -112,7 +112,7 @@ export const MiniNavbar = (props) => {
   return (
     <div className='bg-base-200 hidden sm:block'>
       <div className='bg-base-200 w-full px-10 mx-auto' style={{maxWidth: '1380px'}}>
-        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile')}>
+        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile' || location.pathname === '/profile/edit' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile')}>
           <i className="fa-solid fa-book-open"></i> overview
         </button>
         <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile/project' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile/project')}>

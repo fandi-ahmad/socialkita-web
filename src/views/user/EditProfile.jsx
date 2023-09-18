@@ -82,7 +82,8 @@ const EditProfile = () => {
         formData.append('image_upload', newProfilePicture)
 
         await UpdateUserProfile(formData)
-        navigate('/profile')
+        setUsername(newUsername)
+        setTimeout(() => { navigate('/profile') }, 100)
         setAlertSuccessEdit('opacity-100')
         setTimeout(() => {
           setAlertSuccessEdit('opacity-0')
@@ -151,7 +152,7 @@ const EditProfile = () => {
             category={<InputText placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
             button={
               <div className='flex justify-end mb-4'>
-                <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={() => navigate('/profile')}>batal</button>
+                <button className={`btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2 ${username === null || username === '' ? 'hidden' : ''}`} onClick={() => navigate('/profile')}>batal</button>
                 <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
               </div>
             }

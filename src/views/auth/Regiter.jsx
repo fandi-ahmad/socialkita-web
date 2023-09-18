@@ -13,6 +13,7 @@ const Register = () => {
   const [errorText, setErrorText] = useState('')
   const [errorInputEmail, setErrorInputEmail] = useState('')
   const [errorInputPassword, setErrorInputPassword] = useState('')
+  const [btnClass, setBtnClass] = useState('btn-disabled')
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -21,6 +22,7 @@ const Register = () => {
       case 'password': setPassword(value); break;
       default: break;
     }
+    email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')
     email.length > 0 ? setErrorInputEmail('') : null
     password.length > 0 ? setErrorInputPassword('') : null
   };
@@ -33,7 +35,7 @@ const Register = () => {
         setErrorInputPassword('input-error')
       } else {
         if (email.includes('@gmail.com')) {
-          document.getElementById('my_modal_1').showModal()
+          document.getElementById('loadindAlert').showModal()
 
           const data = await RegisterUser({
             email: email,
@@ -51,13 +53,11 @@ const Register = () => {
               email: email,
               password: password
             })
-            console.log(dataLogin, '<-- response saat login');
             if (dataLogin.status === 200) {
               setErrorText('')
               navigate('/')
             }
           }
-          console.log(data, '<-- response dari register');
         } else {
           setErrorText('Email tidak valid')
           setErrorInputEmail('input-error')
@@ -104,12 +104,12 @@ const Register = () => {
           <small className="text-red-500">{errorText}</small>
           <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/login')}>Sudah punya akun? silahkan masuk</small>
           <div className="card-actions mt-5">
-            <button className="btn btn-primary capitalize" onClick={register}>Daftar</button>
+            <button className={`btn btn-primary capitalize ${btnClass}`} onClick={register}>Daftar</button>
           </div>
         </div>
       </div>
 
-      <dialog id="my_modal_1" className="modal">
+      <dialog id="loadindAlert" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg text-center py-4 pb-10">Loading!</h3>
           <div className='text-center'>
