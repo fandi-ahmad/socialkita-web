@@ -21,8 +21,6 @@ const Login = () => {
       case 'password': setPassword(value); break;
       default: break;
     }
-    email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')
-    password.length > 0 ? setErrorInput('') : null
   };
 
   const login = async () => {
@@ -66,6 +64,11 @@ const Login = () => {
     checkLoginStatus();
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')
+    password.length > 0 ? setErrorInput('') : null
+  }, [email, password])
+
 
 
   return (
@@ -74,7 +77,7 @@ const Login = () => {
        
         <div className="card-body items-center text-center">
           <h2 className="card-title">Masuk</h2>
-          <SimpleInput label='email or username' name='email' onChange={handleInput} value={email} type='email' />
+          <SimpleInput label='email or username' name='email' onChange={handleInput} value={email} />
           <SimpleInput label='password' name='password' onChange={handleInput} value={password} type='password' className={errorInput} />
           <small className="text-red-500">{errorText}</small>
           <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/register')}>Belum punya akun? silahkan daftar</small>

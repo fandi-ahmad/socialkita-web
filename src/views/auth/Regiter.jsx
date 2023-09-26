@@ -22,9 +22,6 @@ const Register = () => {
       case 'password': setPassword(value); break;
       default: break;
     }
-    email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')
-    email.length > 0 ? setErrorInputEmail('') : null
-    password.length > 0 ? setErrorInputPassword('') : null
   };
 
   const register = async () => {
@@ -91,6 +88,11 @@ const Register = () => {
     checkLoginStatus();
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')
+    email.length > 0 ? setErrorInputEmail('') : null
+    password.length > 0 ? setErrorInputPassword('') : null
+  }, [email, password])
 
 
   return (
