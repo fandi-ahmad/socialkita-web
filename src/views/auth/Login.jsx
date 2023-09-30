@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [errorText, setErrorText] = useState('')
   const [errorInput, setErrorInput] = useState('')
+  const [btnClass, setBtnClass] = useState('btn-disabled')
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -24,6 +25,7 @@ const Login = () => {
 
   const login = async () => {
     try {
+      document.getElementById('loadindAlert').showModal()
       const data = await LoginUser({
         email: email,
         password: password
@@ -34,8 +36,9 @@ const Login = () => {
         navigate('/')
       } else if (data.data.status === 404) {
         setErrorInput('input-error')
-        setErrorText('Email or password is wrong!')
+        setErrorText('Password salah!')
       }
+      document.getElementById('closeModal').click()
     } catch (error) {
       throw error
     }
@@ -61,6 +64,11 @@ const Login = () => {
     checkLoginStatus();
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')
+    password.length > 0 ? setErrorInput('') : null
+  }, [email, password])
+
 
 
   return (
@@ -69,14 +77,29 @@ const Login = () => {
        
         <div className="card-body items-center text-center">
           <h2 className="card-title">Masuk</h2>
-          <SimpleInput label='email' name='email' onChange={handleInput} value={email} type='email' className={errorInput} />
+          <SimpleInput label='email or username' name='email' onChange={handleInput} value={email} />
           <SimpleInput label='password' name='password' onChange={handleInput} value={password} type='password' className={errorInput} />
           <small className="text-red-500">{errorText}</small>
           <small className='text-blue-500 cursor-pointer hover:underline' onClick={() => navigate('/register')}>Belum punya akun? silahkan daftar</small>
           <div className="card-actions mt-5">
-            <button className="btn btn-primary capitalize" onClick={login}>Masuk</button>
+            <button className={`btn btn-primary capitalize ${btnClass}`} onClick={login}>Masuk</button>
           </div>
         </div>
+
+        <dialog id="loadindAlert" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg text-center py-4 pb-10">Loading!</h3>
+            <div className='text-center'>
+              <span className="loading loading-spinner loading-lg text-primary"></span>
+            </div>
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn hidden" id='closeModal'>Close</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+
       </div>
     </div>
   )

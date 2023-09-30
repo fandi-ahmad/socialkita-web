@@ -82,7 +82,8 @@ const EditProfile = () => {
         formData.append('image_upload', newProfilePicture)
 
         await UpdateUserProfile(formData)
-        navigate('/profile')
+        setUsername(newUsername)
+        setTimeout(() => { navigate('/profile') }, 100)
         setAlertSuccessEdit('opacity-100')
         setTimeout(() => {
           setAlertSuccessEdit('opacity-0')
@@ -129,7 +130,7 @@ const EditProfile = () => {
       <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
-      <div className={`fixed top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertErrorUsername}`} id='errorUsername'>
+      <div className={`fixed z-50 top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertErrorUsername}`} id='errorUsername'>
         <div className={`alert alert-error w-fit`} >
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <span>{errorText}</span>
@@ -151,7 +152,7 @@ const EditProfile = () => {
             category={<InputText placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
             button={
               <div className='flex justify-end mb-4'>
-                <button className="btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2" onClick={() => navigate('/profile')}>batal</button>
+                <button className={`btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2 ${username === null || username === '' ? 'hidden' : ''}`} onClick={() => navigate('/profile')}>batal</button>
                 <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
               </div>
             }
