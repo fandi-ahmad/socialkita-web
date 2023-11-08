@@ -10,6 +10,7 @@ const DataBook = () => {
   const getAllBook = async () => {
     try {
       // const data = await GetListBook('psychology')
+      // test push
       const data = await GetListBook('money')
       setListBook(data.items)
     } catch (error) {
