@@ -5,7 +5,7 @@ import { useGlobalState } from '../state/state'
 import { themeOfPage } from '../function/baseFunction'
 const urlServer = process.env.KARYAKU_SERVER
 
-export const CheckLogged = () => {
+export const CheckLogged = ({children}) => {
   const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useGlobalState('isLoggedIn')
   const [username, setUsername] = useGlobalState('username')
@@ -45,4 +45,9 @@ export const CheckLogged = () => {
     checkLoginStatus();
   }, [isLoggedIn, username, profilePicture])
 
+  if (isLoggedIn) {
+    return (
+      children
+    )
+  }
 }
