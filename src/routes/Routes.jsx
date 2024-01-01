@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../views/auth/Login";
 import Register from "../views/auth/Regiter";
-import Dashboard from "../views/Dashboard";
+import Home from "../views/Home";
 import Profile from "../views/user/Profile";
 import EditProfile from "../views/user/EditProfile";
 import UserProjectList from "../views/user/UserProjectList";
@@ -38,7 +38,7 @@ export const RoutesTemplate = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<CheckUserLogin page={<Dashboard/>} />} />
+        <Route exact path="/" element={<CheckUserLogin page={<Home/>} />} />
         <Route path="/p" element={<RedirectHome/>} />
         
         <Route path="/login" element={<LoginLogoutPage page={<Login/>} />} />

@@ -11,7 +11,7 @@ import { GetAllDataUserByUsername, GetAllProjectList } from '../api/projectApi';
 import { BaseAlert } from '../components/BaseAlert';
 const urlServer = process.env.KARYAKU_SERVER
 
-const Dashboard = () => {
+const Home = () => {
   const navigate = useNavigate()
   const [username, setUsername] = useGlobalState('username')
   const [projectList, setProjectList] = useState([])
@@ -82,4 +82,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Home
