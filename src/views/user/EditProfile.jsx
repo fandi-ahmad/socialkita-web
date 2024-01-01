@@ -93,9 +93,6 @@ const EditProfile = () => {
         formData.append('image_upload', newProfilePicture)
 
         const data = await UpdateUserProfile(formData)
-        console.log(formData, '<-- form data');
-
-        console.log(data, '<-- respon update data');
 
         setUsername(newUsername)
         setTimeout(() => { navigate('/p/'+username) }, 100)
@@ -137,10 +134,7 @@ const EditProfile = () => {
   };
 
   useEffect(() => {
-    // getUserProfile()
     fillDataUser()
-    console.log(dataUser, '<-- data user');
-    console.log(uuidUser, '<-- uuid user');
   }, [uuidUser])
 
   return (

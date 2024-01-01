@@ -23,6 +23,7 @@ export const Navbar = (props) => {
   const logout = async () => {
     try {
       await LogoutUser()
+      navigate('/')
       location.reload()
     } catch (error) {
       console.log(error);
