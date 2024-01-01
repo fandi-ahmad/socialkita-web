@@ -16,30 +16,36 @@ export const CheckLogged = ({children}) => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        // setTheme(themeOfPage('dark'))
-        const data = await GetUserLogin()
-        setUuidUser(data.data.uuid)
-        setUsername(data.data.username)
-        const picture = data.data.profile_picture
-        picture === null || picture === undefined || picture === ''
-        ? setProfilePicture('')
-        : setProfilePicture(`${urlServer}/${data.data.profile_picture}`)
-
-
-        if (data.status === 401 && location.pathname !== '/') {
-          setIsLoggedIn(false);
-          navigate('/')
-        }
-        if (data.status === 200) {
-          setIsLoggedIn(true);
+        if (location.pathname !== '/login' && location.pathname !== '/register') {
+          // setTheme(themeOfPage('dark'))
+          const data = await GetUserLogin()
+          // console.log(data, '<-- check user, dari checkedlogged.jsx');
+  
+          setUuidUser(data.data.uuid)
+          setUsername(data.data.username)
+          const picture = data.data.profile_picture
+  
+          picture === null || picture === undefined || picture === ''
+            ? setProfilePicture('')
+            : setProfilePicture(`${urlServer}/${data.data.profile_picture}`)
+  
+          if (data.status === 401 && location.pathname !== '/') {
+            console.log('tidak ada user yg login')
+            setIsLoggedIn(false);
+            navigate('/')
+          }
+          if (data.status === 200) {
+            setIsLoggedIn(true);
+          }
+          
         }
       } catch (error) {
         throw error
       }
     };
 
-    if (location.pathname !== '/profile/edit' && username === '') {
-      navigate('/profile/edit')
+    if (location.pathname !== '/'+username+'/edit' && username === '') {
+      navigate('/'+username+'/edit')
     }
 
     checkLoginStatus();

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { CheckLogged } from '../../components/checkLogged'
 import { BottomNavbar, MiniNavbar, Navbar } from '../../components/Navbar'
 import { BaseCard } from '../../components/BaseCard'
 import { GetProjectListByUser, UpdateProject, DeleteProject } from '../../api/projectApi'
@@ -152,7 +151,6 @@ const UserProjectList = () => {
 
   return (
     <div className='h-screen overflow-hidden'>
-      <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
       <LoadingScreen id='loadingScreen' />
