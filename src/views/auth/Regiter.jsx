@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { SimpleInput } from '../../components/baseInput'
-import { RegisterUser, LoginUser, GetAllUser } from '../../api/userApi'
+import { RegisterUser, LoginUser } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
 
 
 const Register = () => {
 
   const navigate = useNavigate()
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorText, setErrorText] = useState('')
@@ -70,25 +69,6 @@ const Register = () => {
 
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const data = await GetAllUser();
-        if (data.status === 401) {
-          setIsLoggedIn(false);
-        }
-        if (data.status === 200) {
-          setIsLoggedIn(true);
-          navigate('/')
-        }
-      } catch (error) {
-        throw error
-      }
-    };
-
-    checkLoginStatus();
-  }, [isLoggedIn]);
-
-  useEffect(() => {
     email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')
     email.length > 0 ? setErrorInputEmail('') : null
     password.length > 0 ? setErrorInputPassword('') : null
@@ -98,7 +78,7 @@ const Register = () => {
   return (
     <div className='bg-gray-100 h-screen flex justify-center items-center'>
       <div className="card w-96 bg-base-100 shadow-xl">
-       
+      
         <div className="card-body items-center text-center">
           <h2 className="card-title">Daftar</h2>
           <SimpleInput label='email' name='email' onChange={handleInput} value={email} type='email' className={errorInputEmail} />

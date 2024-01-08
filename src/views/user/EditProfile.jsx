@@ -3,11 +3,9 @@ import { Navbar, MiniNavbar, BottomNavbar } from '../../components/Navbar'
 import { InputText, InputTextArea, SimpleInput } from '../../components/baseInput'
 import { ProfileCard, ProfileCardInput } from '../../components/ProfileCard'
 import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
-import { CheckLogged } from '../../components/checkLogged'
 import { useGlobalState } from '../../state/state'
 import { GetUserProfile, UpdateUserProfile } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
-import { getId } from '../../function/baseFunction'
 const urlServer = process.env.KARYAKU_SERVER
 
 const EditProfile = () => {
@@ -27,6 +25,7 @@ const EditProfile = () => {
   const [alertErrorUsername, setAlertErrorUsername] = useState('opacity-0 hidden')
   const [errorText, setErrorText] = useState('')
   const [inputUsernameClass, setInputUsernameClass] = useState('')
+  const [dataUser, setDataUser] = useGlobalState('dataUser')
 
   const navigate = useNavigate()
 
@@ -48,6 +47,18 @@ const EditProfile = () => {
     } catch (error) {
       console.log(error, '<-- error');
     }
+  }
+
+  const fillDataUser = () => {
+    // setProfilePicture(`http://${urlServer}/${dataUser.profile_picture}`)
+    setProfilePicture(urlServer+'/'+dataUser.profile_picture)
+    setNewUsername(username)
+    setFullname(dataUser.fullname)
+    setCategory(dataUser.category)
+    setAddress(dataUser.address)
+    setWork(dataUser.work)
+    setLink(dataUser.link)
+    setBiodata(dataUser.biodata)
   }
 
   const showAlertError = () => {
@@ -81,9 +92,10 @@ const EditProfile = () => {
         formData.append('biodata', biodata)
         formData.append('image_upload', newProfilePicture)
 
-        await UpdateUserProfile(formData)
+        const data = await UpdateUserProfile(formData)
+
         setUsername(newUsername)
-        setTimeout(() => { navigate('/profile') }, 100)
+        setTimeout(() => { navigate('/p/'+username) }, 100)
         setAlertSuccessEdit('opacity-100')
         setTimeout(() => {
           setAlertSuccessEdit('opacity-0')
@@ -122,12 +134,11 @@ const EditProfile = () => {
   };
 
   useEffect(() => {
-    getUserProfile()
+    fillDataUser()
   }, [uuidUser])
 
   return (
     <div className='h-screen overflow-y-auto'>
-      <CheckLogged />
       <Navbar/>
       <MiniNavbar/>
       <div className={`fixed z-50 top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertErrorUsername}`} id='errorUsername'>
@@ -139,8 +150,8 @@ const EditProfile = () => {
 
       <div>
         <div className='px-10 pt-10 flex flex-col md:flex-row mx-auto' style={{maxWidth: '1380px'}}>
-          <div className="avatar cursor-pointer tooltip tooltip-bottom h-fit flex justify-center" data-tip='edit foto profile' onClick={() => navigate('/profile/edit')}>
-            <div className="w-72 h-72 rounded-full">
+          <div className="avatar cursor-pointer tooltip tooltip-bottom h-fit flex justify-center mb-12" data-tip='edit foto profile' onClick={() => navigate('/p/'+username+'/edit')}>
+            <div className="w-40 h-40 xsm:w-52 xsm:h-52 sm:w-72 sm:h-72 rounded-full">
               <img src={newProfilePictureUrl || profilePicture || profilePictureEmpty} onClick={() => document.getElementById('inputFile').click()} className='w-full hover:brightness-90 duration-200' />
               <input type="file" className='hidden' id='inputFile' name='profile_picture'  onChange={handleInputFile} />
             </div>
@@ -152,7 +163,7 @@ const EditProfile = () => {
             category={<InputText placeholder='kategori' name='category' value={category} onChange={handleInput} className='max-w-xs' />}
             button={
               <div className='flex justify-end mb-4'>
-                <button className={`btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2 ${username === null || username === '' ? 'hidden' : ''}`} onClick={() => navigate('/profile')}>batal</button>
+                <button className={`btn btn-sm bg-base-300 hover:brightness-90 capitalize me-2 ${username === null || username === '' ? 'hidden' : ''}`} onClick={() => navigate('/p/'+username)}>batal</button>
                 <button className="btn btn-sm btn-primary capitalize" onClick={btnSave}>simpan</button>
               </div>
             }

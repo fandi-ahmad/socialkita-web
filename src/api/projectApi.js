@@ -49,3 +49,7 @@ export const GetProjectListByUser = (uuid) => {
 export const GetAllProjectList = () => {
   return callApiGet(apiProject)
 }
+
+export const GetAllDataUserByUsername = (username) => {
+  return callApiGet(apiProject+'/profile/'+username)
+}

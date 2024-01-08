@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { SimpleInput } from '../../components/baseInput'
-import { LoginUser, GetAllUser } from '../../api/userApi'
+import { LoginUser } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
 
   const navigate = useNavigate()
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorText, setErrorText] = useState('')
@@ -44,25 +43,6 @@ const Login = () => {
     }
   }
 
-
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const data = await GetAllUser();
-        if (data.status === 401) {
-          setIsLoggedIn(false);
-        }
-        if (data.status === 200) {
-          setIsLoggedIn(true);
-          navigate('/')
-        }
-      } catch (error) {
-        throw error
-      }
-    };
-
-    checkLoginStatus();
-  }, [isLoggedIn]);
 
   useEffect(() => {
     email !== '' && password !== '' ? setBtnClass('') : setBtnClass('btn-disabled')

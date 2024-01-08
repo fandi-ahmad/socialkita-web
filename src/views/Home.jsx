@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetAllUser, UpdateUserProfile } from '../api/userApi'
+import { GetAllUser, UpdateUserProfile, GetUserByUsername } from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
 import { CheckLogged } from '../components/checkLogged'
 import { useGlobalState } from '../state/state';
@@ -7,11 +7,11 @@ import { BottomNavbar, Navbar } from '../components/Navbar';
 import { BaseCard } from '../components/BaseCard';
 import { getId, formatDate } from '../function/baseFunction';
 import { BaseLoading, LoadingData, LoadingScreen } from '../components/BaseLoading';
-import { GetAllProjectList } from '../api/projectApi';
+import { GetAllDataUserByUsername, GetAllProjectList } from '../api/projectApi';
 import { BaseAlert } from '../components/BaseAlert';
 const urlServer = process.env.KARYAKU_SERVER
 
-const Dashboard = () => {
+const Home = () => {
   const navigate = useNavigate()
   const [username, setUsername] = useGlobalState('username')
   const [projectList, setProjectList] = useState([])
@@ -44,8 +44,6 @@ const Dashboard = () => {
     getAllProjectList()
   }, [])
 
- 
-  
   useEffect(() => {
     getAllData()
   }, [username])
@@ -53,7 +51,6 @@ const Dashboard = () => {
 
   return (
     <div className='h-screen overflow-hidden'>
-      <CheckLogged />
       <Navbar/>
       <BaseAlert type='success' text='projectmu berhasil ditambahkan' className={alertClass} />
       <div className='h-screen overflow-y-auto'>
@@ -71,10 +68,11 @@ const Dashboard = () => {
                   profilePicture={urlServer+'/'+project.profile_picture}
                   demoLink={project.demo_link}
                   sourceCode={project.source_code}
-                  />
+                  showMenuProfile='show'
+                  onClickShowProfile={() => navigate('/p/'+project.username)}
+                />
               </div>
             ))}
-
 
           </div>
         </div>
@@ -84,4 +82,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Home

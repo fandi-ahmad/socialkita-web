@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { CheckLogged } from '../../components/checkLogged'
 import { InputText, InputTextArea, SimpleInput } from '../../components/baseInput'
 import { useNavigate } from 'react-router-dom'
 import { CreateProject } from '../../api/projectApi'
@@ -15,6 +14,7 @@ const AddProject = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
   const [pagePrevious, setPagePrevious] = useGlobalState('pagePrevious')
   const [theme, setTheme] = useGlobalState('theme')
+  const [username, setUsername] = useGlobalState('username')
 
   const [alertClass, setAlertClass] = useGlobalState('alertClass')
   const [projectImage, setProjectImage] = useState(null)
@@ -127,14 +127,13 @@ const AddProject = () => {
 
   return (
     <div className='h-screen'>
-      <CheckLogged />
       <BaseAlert type='error' text={alertMsg} className='hidden' id='errorAlert' />
       <LoadingScreen id='loading' heightPage={heightPage} />
       <div>
         <div className='px-10 py-10 mx-auto' style={{maxWidth: '1380px'}}>
           <div className='flex justify-between items-center'>
             <h1 className='font-bold text-2xl'>Project Baru</h1>
-            <div className='cursor-pointer' title='close' onClick={() => navigate('/profile')}>
+            <div className='cursor-pointer' title='close' onClick={() => navigate('/p/'+username)}>
               <i className="fa-solid fa-xmark fa-2xl"></i>
             </div>
           </div>

@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { LogoutUser } from '../api/userApi'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import profilePictureEmpty from '../assets/images/blank-profile-picture.png'
 import { useGlobalState } from '../state/state'
 import { themeOfPage } from '../function/baseFunction'
+import { GetAllDataUserByUsername } from '../api/projectApi'
 
 export const Navbar = (props) => {
   const [profilePicture, setProfilePicture] = useGlobalState('profile_picture')
   const [isLoggedIn, setIsLoggedIn] = useGlobalState('isLoggedIn')
+  const [isUsername, setIsUsername] = useGlobalState('isUsername')
+  const [isUsernameSame, setIsUsernameSame] = useGlobalState('isUsernameSame')
+  const [dataUser, setDataUser] = useGlobalState('dataUser')
+  const [dataProjectUser, setDataProjectUser] = useGlobalState('dataProjectUser')
+
   const [tema, setTema] = useState('false')
+  const [username, setUsername] = useGlobalState('username')
+  const { user } = useParams()
 
   const navigate = useNavigate()
 
   const logout = async () => {
     try {
       await LogoutUser()
+      navigate('/')
       location.reload()
     } catch (error) {
       console.log(error);
@@ -30,7 +39,24 @@ export const Navbar = (props) => {
     value === 'false' ? themeOfPage('dark') : themeOfPage('light')
   }
 
+  const toProfilePage = async () => {
+    try {
+      const data = await GetAllDataUserByUsername(username)
+      setIsUsername(true)
+      setDataUser(data.data)
+      setDataProjectUser(data.data.projects)
+      setIsUsernameSame(true)
+
+      navigate('/p/' + username)
+      
+    } catch (error) {
+      
+    }
+  }
+
+
   const navbarMenuLogin = () => {
+    // ===== user login condition =====
     if (isLoggedIn) {
       return (
         <div className="flex-none gap-2">
@@ -42,10 +68,10 @@ export const Navbar = (props) => {
             </label>
             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
               <li>
-                <a className='py-2' onClick={() => navigate('/profile')}><i className="fa-solid fa-user"></i>Profile</a>
+                <a className='py-2' onClick={toProfilePage}><i className="fa-solid fa-user"></i>Profile</a>
               </li>
               <li>
-                <a className='py-2' onClick={() => navigate('/profile/project')}><i className="fa-solid fa-briefcase"></i>Project</a>
+                <a className='py-2' onClick={() => navigate('/p/' + username +'/project')}><i className="fa-solid fa-briefcase"></i>Project</a>
               </li>
               <li>
                 <a className='py-2' onClick={()=>document.getElementById('logoutModal').showModal()}><i className="fa-solid fa-right-from-bracket"></i>Logout</a>
@@ -71,6 +97,7 @@ export const Navbar = (props) => {
         </div>
       )
     } else {
+      // ===== user is not login condition =====
       return (
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn m-1"><i className="fa-solid fa-user fa-xl"></i></label>
@@ -109,27 +136,30 @@ export const Navbar = (props) => {
 
 export const MiniNavbar = (props) => {
   const navigate = useNavigate()
-  return (
+  const [username, setUsername] = useGlobalState('username')
+  const [isUsernameSame, setIsUsernameSame] = useGlobalState('isUsernameSame')
+
+  return isUsernameSame ? 
     <div className='bg-base-200 hidden sm:block'>
       <div className='bg-base-200 w-full px-10 mx-auto' style={{maxWidth: '1380px'}}>
-        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile' || location.pathname === '/profile/edit' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile')}>
+        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/p/' + username || location.pathname === '/p/' + username + '/edit' ? 'bg-base-300' : ''}`} onClick={() => navigate('/p/'+username)}>
           <i className="fa-solid fa-book-open"></i> overview
         </button>
-        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/profile/project' ? 'bg-base-300' : ''}`} onClick={() => navigate('/profile/project')}>
+        <button className={`btn btn-sm capitalize me-2 ${location.pathname === '/p/' + username + '/project' ? 'bg-base-300' : ''}`} onClick={() => navigate('/p/'+username+'/project')}>
           <i className="fa-solid fa-briefcase"></i> project
         </button>
         <button className={`btn btn-sm capitalize me-2`} onClick={() => navigate('/project/new')}>
-        <i className="fa-solid fa-square-plus"></i> project baru
+          <i className="fa-solid fa-square-plus"></i> project baru
         </button>
       </div>
-    </div>
-  )
+    </div> : null
 }
 
 export const BottomNavbar = () => {
   const [pagePrevious, setPagePrevious] = useGlobalState('pagePrevious')
   const [isLoggedIn, setIsLoggedIn] = useGlobalState('isLoggedIn')
   const navigate = useNavigate()
+  const [username, setUsername] = useGlobalState('username')
 
   const newProjectBtn = () => {
     setPagePrevious(location.pathname)
@@ -153,13 +183,13 @@ export const BottomNavbar = () => {
             <i className="fa-solid fa-plus fa-2xl"></i>
           </button>
 
-          <button className={`btn btn-sm xsm:btn-md sm:btn-lg ${location.pathname === '/profile/project' ? 'btn-primary' : ''}`} onClick={() => navigate('/profile/project')}>
+          <button className={`btn btn-sm xsm:btn-md sm:btn-lg ${location.pathname === '/p/'+username+'/project' ? 'btn-primary' : ''}`} onClick={() => navigate('/p/'+username+'/project')}>
             <i className="fa-solid fa-briefcase fa-xl"></i>
           </button>
 
           <button 
-            className={`btn btn-sm xsm:btn-md sm:btn-lg ${location.pathname === '/profile' || location.pathname == '/profile/edit' ? 'btn-primary' : ''}`} 
-            onClick={() => navigate('/profile')}
+            className={`btn btn-sm xsm:btn-md sm:btn-lg ${location.pathname === '/p/'+username || location.pathname == '/p/'+username+'/edit' ? 'btn-primary' : ''}`} 
+            onClick={() => navigate('/p/'+username)}
           >
             <i className="fa-solid fa-user fa-xl"></i>
           </button>

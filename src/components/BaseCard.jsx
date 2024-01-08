@@ -2,6 +2,7 @@ import React from 'react'
 import { BaseButton } from './BaseButton'
 import profilePictureEmpty from '../assets/images/blank-profile-picture.png'
 const urlServer = process.env.KARYAKU_SERVER
+import { getId } from '../function/baseFunction'
 
 export const BaseCard = (props) => {
   const exampleImage = 'https://img.freepik.com/free-psd/music-magazine-landing-page-theme_23-2148824020.jpg?w=826&t=st=1694677888~exp=1694678488~hmac=ea42a6e7f43fe3cbc829bfa7ad386d1ecd37eb0b7e037e539c25e1b446d68290'
@@ -35,6 +36,17 @@ export const BaseCard = (props) => {
     }
   }
 
+  const showHideMenuProfile = (propsSelected) => {
+    if (propsSelected) {
+      return (
+        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li onClick={props.onClickShowProfile}><a>Show Profile</a></li>
+          <li onClick={props.onClickSendMessage}><a>Send Message</a></li>
+        </ul>
+      )
+    }
+  }
+
 
   return (
     <div className="card bg-base-100 shadow-xl mx-auto w-full xsm:w-72 sm:w-96 lg:mx-0 md:w-80 lg:w-96" key={props.key}>
@@ -44,11 +56,16 @@ export const BaseCard = (props) => {
       </figure>
       <div className="card-body flex">
         <div className='flex flex-row items-center'>
-          <div className="avatar">
-            <div className="w-8 h-8 rounded-full me-2">
-              <img src={!props.profilePicture || props.profilePicture === urlServer+'/' ? profilePictureEmpty : props.profilePicture} />
+
+          <div className="dropdown">
+            <div className="avatar" tabIndex={0} role='button'>
+              <div className="w-8 h-8 rounded-full me-2">
+                <img src={!props.profilePicture || props.profilePicture === urlServer+'/' ? profilePictureEmpty : props.profilePicture} />
+              </div>
             </div>
+            {showHideMenuProfile(props.showMenuProfile)}            
           </div>
+
           <div>
             <h2 className="card-title">{props.title || 'Example title for project'}</h2>
             <p>{props.username}</p>

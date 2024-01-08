@@ -66,3 +66,7 @@ export const GetUserProfile = (uuid) => {
 export const UpdateUserProfile = (data) => {
   return callApi('put', `${apiUser}/update`, data)
 }
+
+export const GetUserByUsername = (username) => {
+  return callApi('get', apiUser + '/profile/username/' + username)
+}
