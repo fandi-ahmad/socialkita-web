@@ -6,7 +6,8 @@ import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
 import { useGlobalState } from '../../state/state'
 import { GetUserProfile, UpdateUserProfile } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
+
 
 const EditProfile = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')

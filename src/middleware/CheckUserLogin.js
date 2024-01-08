@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { GetUserLogin } from "../api/userApi"
 import { useGlobalState } from "../state/state"
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
 
 const CheckUserLogin = (props) => {
 

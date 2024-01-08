@@ -9,7 +9,7 @@ import { getId, formatDate } from '../function/baseFunction';
 import { BaseLoading, LoadingData, LoadingScreen } from '../components/BaseLoading';
 import { GetAllDataUserByUsername, GetAllProjectList } from '../api/projectApi';
 import { BaseAlert } from '../components/BaseAlert';
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
 
 const Home = () => {
   const navigate = useNavigate()
