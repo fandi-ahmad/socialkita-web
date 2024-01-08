@@ -1,8 +1,7 @@
 import React from 'react'
 import { BaseButton } from './BaseButton'
 import profilePictureEmpty from '../assets/images/blank-profile-picture.png'
-const urlServer = process.env.KARYAKU_SERVER
-import { getId } from '../function/baseFunction'
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
 
 export const BaseCard = (props) => {
   const exampleImage = 'https://img.freepik.com/free-psd/music-magazine-landing-page-theme_23-2148824020.jpg?w=826&t=st=1694677888~exp=1694678488~hmac=ea42a6e7f43fe3cbc829bfa7ad386d1ecd37eb0b7e037e539c25e1b446d68290'

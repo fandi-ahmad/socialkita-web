@@ -8,7 +8,7 @@ import { BaseButton } from '../../components/BaseButton'
 import { getId, formatDate } from '../../function/baseFunction'
 import { BaseAlert } from '../../components/BaseAlert'
 import { BaseLoading, LoadingData, LoadingScreen } from '../../components/BaseLoading'
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
 
 
 const UserProjectList = () => {

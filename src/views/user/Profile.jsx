@@ -9,7 +9,7 @@ import { GetUserProfile, UpdateUserProfile } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
 import { BaseCard } from '../../components/BaseCard'
 import { formatDate } from '../../function/baseFunction'
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
 
 const Profile = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')

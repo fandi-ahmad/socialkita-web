@@ -1,9 +1,8 @@
 {
-  "name": "karyaku-web",
+  "name": "socialkita-web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://karyaku.penakuofficial.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

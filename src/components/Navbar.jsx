@@ -118,7 +118,7 @@ export const Navbar = (props) => {
     <div className='bg-base-200 '>
       <div className="navbar bg-base-200 px-10 mx-auto" style={{maxWidth: '1380px'}}>
         <div className="flex-1">
-          <a className="normal-case text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>KaryaKu</a>
+          <a className="normal-case text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>SocialKita</a>
         </div>
         <div>
         <label className="swap swap-rotate mr-4">

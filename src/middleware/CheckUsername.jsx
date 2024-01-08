@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useGlobalState } from '../state/state'
 import { GetAllDataUserByUsername } from '../api/projectApi'
 import PageNotFound from '../views/PageNotFound'
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
 
 
 const CheckUsername = (props) => {

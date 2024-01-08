@@ -3,7 +3,8 @@ import { GetUserLogin } from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
 import { useGlobalState } from '../state/state'
 import { themeOfPage } from '../function/baseFunction'
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
+
 
 export const CheckLogged = ({children}) => {
   const navigate = useNavigate()

@@ -6,7 +6,8 @@ import profilePictureEmpty from '../../assets/images/blank-profile-picture.png'
 import { useGlobalState } from '../../state/state'
 import { GetUserProfile, UpdateUserProfile } from '../../api/userApi'
 import { useNavigate } from 'react-router-dom'
-const urlServer = process.env.KARYAKU_SERVER
+const urlServer = import.meta.env.VITE_SOCIALKITA_SERVER
+
 
 const EditProfile = () => {
   const [uuidUser, setUuidUser] = useGlobalState('uuidUser')
@@ -80,6 +81,9 @@ const EditProfile = () => {
       } else if (newUsername.indexOf(' ') !== -1) {
         setErrorText('username tidak boleh ada spasi')
         showAlertError()
+      } else if (newUsername.includes('.')) {
+        setErrorText('username tidak menggunakan "." alternatif "-" atau "_"')
+        showAlertError()
       } else {
         const formData = new FormData();
         formData.append('uuid_user', uuidUser)
@@ -94,15 +98,20 @@ const EditProfile = () => {
 
         const data = await UpdateUserProfile(formData)
 
-        setUsername(newUsername)
-        setTimeout(() => { navigate('/p/'+username) }, 100)
-        setAlertSuccessEdit('opacity-100')
-        setTimeout(() => {
-          setAlertSuccessEdit('opacity-0')
+        if (data.status === 200) {
+          setUsername(newUsername)
+          setTimeout(() => { navigate('/p/'+newUsername) }, 100)
+          setAlertSuccessEdit('opacity-100')
           setTimeout(() => {
-            setAlertSuccessEdit('opacity-0 hidden')
-          }, 100);
-        }, 2000);
+            setAlertSuccessEdit('opacity-0')
+            setTimeout(() => {
+              setAlertSuccessEdit('opacity-0 hidden')
+            }, 100);
+          }, 2000);
+        } else {
+          setErrorText('username tidak tersedia')
+          showAlertError()
+        }
       }
       
     } catch (error) {
@@ -143,7 +152,7 @@ const EditProfile = () => {
       <MiniNavbar/>
       <div className={`fixed z-50 top-5 w-full px-20 flex justify-center transition-all duration-200 ${alertErrorUsername}`} id='errorUsername'>
         <div className={`alert alert-error w-fit`} >
-          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <span>{errorText}</span>
         </div>
       </div>
