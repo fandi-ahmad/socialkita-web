@@ -14,6 +14,8 @@ import CheckUsername from "../middleware/CheckUsername";
 import CheckUserLogin from "../middleware/CheckUserLogin";
 import CheckUsernameSame from "../middleware/CheckUsernameSame";
 import RedirectHome from "../views/RedirectHome";
+import Account from "../views/user/setting/Account";
+import ChangePassword from "../views/user/setting/ChangePassword";
 
 export const RoutesTemplate = () => {
 
@@ -47,6 +49,8 @@ export const RoutesTemplate = () => {
         <Route path="/p/:user" element={<CheckUsername page={<Profile/>} pageNotFound={<PageNotFound/>} />} />
         {authUsernameSame('/p/:user/edit', <EditProfile/>)}
         {authUsernameSame('/p/:user/project', <UserProjectList/>)}
+        {authUsernameSame('/p/:user/setting/account', <Account/>)}
+        {authUsernameSame('/p/:user/setting/changepassword', <ChangePassword/>)}
         <Route path="/project/new" element={<AuthenticatedUser page={<CheckUserLogin page={<AddProject/>} />} />} />
 
         <Route path="/data-book" element={<DataBook/>} />

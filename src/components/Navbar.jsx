@@ -74,6 +74,9 @@ export const Navbar = (props) => {
                 <a className='py-2' onClick={() => navigate('/p/' + username +'/project')}><i className="fa-solid fa-briefcase"></i>Project</a>
               </li>
               <li>
+                <a className='py-2' onClick={() => navigate('/p/' + username +'/setting/account')}><i className="fa-solid fa-gear"></i>Setting</a>
+              </li>
+              <li>
                 <a className='py-2' onClick={()=>document.getElementById('logoutModal').showModal()}><i className="fa-solid fa-right-from-bracket"></i>Logout</a>
               </li>
             </ul>
